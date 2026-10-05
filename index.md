@@ -10,5 +10,5 @@ title: ""
 
 ## 📚 CATEGORIES
 
-- [Weekly Paper](/categories/#weekly-paper)
-- [AI Learning Notes](/categories/#ai-learning-notes)
+- [Weekly Paper](/categories/)
+- [AI Learning Notes](/categories/)
