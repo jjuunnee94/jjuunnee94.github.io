@@ -1,7 +1,7 @@
 ---
 title: "Weekly paper #2"
 date: 2026-10-05 16:00:00 +0900
-categories: [Codeit, "Weekly paper"]
+categories: [Codeit, Weekly paper]
 tags: [codeit, WeeklyPaper]
 ---
 🇶 고객 구매 금액 데이터가 오른쪽으로 심하게 치우친 분포를 보여요. 팀장님이 '평균 구매 금액이 5만원이니 다들 5만원 정도 쓴다고 보면 되겠네요'라고 말해요. 이 말에 어떻게 답할 건가요?
