@@ -14,7 +14,7 @@ tags: [codeit, journal]
 - **검증 데이터 (Validation Data)** : 학습 중 과적합(Overfitting)을 방지하고 성능을 평가하기 위해 학습 데이터 내부에서 분할한 데이터
 - **테스트 데이터 (Test Data)** : 최종 모델의 예측 성능을 측정하기 위한 평가 데이터
 
-전처리 과정에서는 예측할 핵심 목표인 **타깃(Target: Survived)**과 이에 영향을 미치는 다양한 **특성(Feature)**들 간의 관계를 파악하고, 모델이 학습하기 최적의 형태로 데이터를 가공합니다.
+전처리 과정에서는 예측할 핵심 목표인 <b>타깃(Target: Survived)</b>과 이에 영향을 미치는 다양한 <b>특성(Feature)</b> 간의 관계를 파악하고, 모델이 학습하기 최적의 형태로 데이터를 가공합니다.
 
 ### 1. 데이터 확인 및 탐색 (EDA)
 
@@ -95,8 +95,8 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_st
 model = DecisionTreeClassifier(random_state=41) # 기본 결정 트리 고정시드 41
 scores = cross_val_score(model, X, y, cv=5, scoring='accuracy') # 결정 트리 모델 5-Fold 교차 검증 수행
 
-print("기본 결정 트리교차 검증 정확도 목록:", scores)
-print("기본 결정 트리평균 정확도:", scores.mean())
+print("기본 결정 트리 교차 검증 정확도 목록:", scores)
+print("기본 결정 트리 평균 정확도:", scores.mean())
 
 
 # 랜덤 포레스트(RandomForest)
@@ -113,9 +113,67 @@ scores_gb = cross_val_score(model_gb, X, y, cv=5, scoring='accuracy')
 print("그래디언트 부스팅 검증 정확도 목록:", scores_gb)
 print("그래디언트 부스팅 평균 정확도:", scores_gb.mean())
 ```
-# 출력값
-기본 결정 트리교차 검증 정확도 목록: [0.73743017 0.75842697 0.84269663 0.76966292 0.82022472]
-기본 결정 트리 평균 정확도: 0.7856882807105643
-랜덤 포레스트 교차 검증 정확도 목록: [0.77653631 0.80898876 0.84269663 0.78089888 0.85955056]
-랜덤 포레스트 평균 정확도: 0.8137342288619672
-그래디언트 부스팅 검증 정확도 목록: [0.81564246 0.82022472 
+# 출력값  
+기본 결정 트리 교차 검증 정확도 목록: [0.73743017 0.75842697 0.84269663 0.76966292 0.82022472]  
+기본 결정 트리 평균 정확도: 0.7856882807105643  
+
+랜덤 포레스트 교차 검증 정확도 목록: [0.77653631 0.80898876 0.84269663 0.78089888 0.85955056]  
+랜덤 포레스트 평균 정확도: 0.8137342288619672  
+
+그래디언트 부스팅 검증 정확도 목록: [0.81564246 0.82022472 0.85955056 0.80898876 0.85393258]  
+그래디언트 부스팅 평균 정확도: 0.8316678174628084 
+
+### 7. 하이퍼파라미터 튜닝
+```python
+from sklearn.model_selection import StratifiedKFold
+cv_splits = StratifiedKFold(n_splits=5, shuffle=True, random_state=41) # 5묶음으로 나누고 무작위로 섞은뒤 고정시드 41
+
+gb_rate1d3 = GradientBoostingClassifier(n_estimators=100, max_depth=3, learning_rate=0.1, random_state=41)
+scores_gb_rate1d3 = cross_val_score(gb_rate1d3, X, y, cv=cv_splits, scoring='accuracy')
+
+print("lr=0.1, max_depth=3 GB CV 평균 정확도:", scores_gb_rate1d3.mean())
+
+gb_rate05d3 = GradientBoostingClassifier(n_estimators=100, max_depth=3, learning_rate=0.05, random_state=41)
+scores_gb_rate05d3 = cross_val_score(gb_rate05d3, X, y, cv=cv_splits, scoring='accuracy')
+
+print("lr=0.05, max_depth=3 GB CV 평균 정확도:", scores_gb_rate05d3.mean())
+
+gb_rate1d5 = GradientBoostingClassifier(n_estimators=100, max_depth=5, learning_rate=0.1, random_state=41)
+scores_gb_rate1d5 = cross_val_score(gb_rate1d5, X, y, cv=cv_splits, scoring='accuracy')
+
+print("lr=0.1, max_depth=5 GB CV 평균 정확도:", scores_gb_rate1d5.mean())
+
+gb_rate05d5 = GradientBoostingClassifier(n_estimators=100, max_depth=5, learning_rate=0.05, random_state=41)
+scores_gb_rate05d5 = cross_val_score(gb_rate05d5, X, y, cv=cv_splits, scoring='accuracy')
+
+print("lr=0.05, max_depth=5 GB CV 평균 정확도:", scores_gb_rate05d5.mean())
+
+model_n100d5 = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=41)
+scores_n100d5 = cross_val_score(model_n100d5, X, y, cv=cv_splits, scoring='accuracy')
+
+print("max_depth=5, n_estimators=100 적용 평균 정확도:", scores_n100d5.mean())
+
+model_n200d5 = RandomForestClassifier(n_estimators=200, max_depth=5, random_state=41)
+scores_n200d5 = cross_val_score(model_n200d5, X, y, cv=cv_splits, scoring='accuracy')
+
+print("max_depth=5, n_estimators=200 적용 평균 정확도:", scores_n200d5.mean())
+
+model_n100d7 = RandomForestClassifier(n_estimators=100, max_depth=7, random_state=41)
+scores_n100d7 = cross_val_score(model_n100d7, X, y, cv=cv_splits, scoring='accuracy')
+
+print("max_depth=7, n_estimators=100 적용 평균 정확도:", scores_n100d7.mean())
+
+model_n100d3 = RandomForestClassifier(n_estimators=100, max_depth=3, random_state=41)
+scores_n100d3 = cross_val_score(model_n100d3, X, y, cv=cv_splits, scoring='accuracy')
+
+print("max_depth=3, n_estimators=100 적용 평균 정확도:", scores_n100d3.mean())
+```
+
+lr=0.1, max_depth=3 GB CV 평균 정확도: 0.8271922666499278
+lr=0.05, max_depth=3 GB CV 평균 정확도: 0.8249450756386919
+lr=0.1, max_depth=5 GB CV 평균 정확도: 0.8249325214989642
+lr=0.05, max_depth=5 GB CV 평균 정확도: 0.8339338396836358
+max_depth=5, n_estimators=100 적용 평균 정확도: 0.8260812252840374
+max_depth=5, n_estimators=200 적용 평균 정확도: 0.8249450756386919
+max_depth=7, n_estimators=100 적용 평균 정확도: 0.8182097796748478
+max_depth=3, n_estimators=100 적용 평균 정확도: 0.8024982738057875
