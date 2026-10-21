@@ -1,5 +1,5 @@
 ---
-title: "Codeit AI Notes 1st"
+title: "Predicting Titanic Survival Rates using Machine Learning"
 date: 2026-10-19 19:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, journal]
@@ -204,26 +204,8 @@ print("max_depth=3, n_estimators=100 적용 평균 정확도:", scores_n100d3.me
 max_depth=3, n_estimators=100 적용 평균 정확도: 0.8024982738057875
 
 ### 8. 최종 평가
-
 ```python
-# 최종 모델 설정
-best_model = GradientBoostingClassifier(n_estimators=100, max_depth=5, learning_rate=0.05, random_state=41)
-best_scores = cross_val_score(best_model, X, y, cv=cv_splits, scoring='accuracy')
-
-# 최종 모델 출력
-print("학습검증데이터 기반\n")
-print("최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스팅 모델")
-print("최종모델 검증 정확도 목록:", best_scores)
-print("최종모델 적용 평균 정확도:", best_scores.mean(),"\n")
-```
-학습검증데이터 기반
-
-최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스팅 모델
-최종모델 검증 정확도 목록: [0.81564246 0.82022472 0.85955056 0.80898876 0.85393258]
-최종모델 적용 평균 정확도: 0.8339338396836358 
-
-```python
-# 최종 모델 선정 이유 그래프화
+# 모델별 정확도 그래프화
 names = [
     'GB (lr=0.1, depth=3)',
     'GB (lr=0.05, depth=3)',
@@ -251,9 +233,30 @@ plt.barh(names, scores_list)
 plt.xlim(0.80, 0.84)
 plt.show()
 ```
+![타이타닉 정확도 그래프](/assets/titanic-accuracy-graph.png)
 
-print("\n테스트데이터 기반\n")
-print("최종모델 : 트리갯수 50 트리 깊이 5의 랜덤포레스트 모델")
-print("\n그래디언트 부스팅은 과적합되기 쉽기 때문에 학습검증정확도는 높게 나왔으나 테스트정확도는 낮게 나왔다")
-print("트리 깊이 또한 깊을수록 노이즈까지 과도하게 학습할 수 있으므로 트리깊이를 낮추니 학습검증정확도는 낮아졌으나 테스트정확도는 높아졌다\n")
-print("랜덤포레스트는 그래디언트 부스팅에 비해 학습검증정확도는 낮았으나 노이즈에 안정적이므로 테스트데이터는 가장 높게 나왔다")
+```python
+# 최종 모델 설정
+best_model = GradientBoostingClassifier(n_estimators=100, max_depth=5, learning_rate=0.05, random_state=41)
+best_scores = cross_val_score(best_model, X, y, cv=cv_splits, scoring='accuracy')
+
+# 최종 모델 출력
+print("학습검증데이터 기반\n")
+print("최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스팅 모델")
+print("최종모델 검증 정확도 목록:", best_scores)
+print("최종모델 적용 평균 정확도:", best_scores.mean(),"\n")
+```
+학습검증데이터 기반
+
+최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스팅 모델
+최종모델 검증 정확도 목록: [0.81564246 0.82022472 0.85955056 0.80898876 0.85393258]
+최종모델 적용 평균 정확도: 0.8339338396836358 
+
+테스트데이터 기반
+
+![최종 테스트 결과](/assets/final-test-result.png)
+
+최종모델 : 트리갯수 50 트리 깊이 5의 랜덤포레스트 모델  
+그래디언트 부스팅은 과적합되기 쉽기 때문에 학습검증정확도는 높게 나왔으나 테스트정확도는 낮게 나왔다.  
+트리 깊이 또한 깊을수록 노이즈까지 과도하게 학습할 수 있으므로 트리깊이를 낮추니 학습검증정확도는 낮아졌으나 테스트정확도는 높아졌다.  
+랜덤포레스트는 그래디언트 부스팅에 비해 학습검증정확도는 낮았으나 노이즈에 안정적이므로 테스트데이터는 가장 높게 나왔다.  
