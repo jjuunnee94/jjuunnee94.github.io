@@ -124,56 +124,136 @@ print("그래디언트 부스팅 평균 정확도:", scores_gb.mean())
 그래디언트 부스팅 평균 정확도: 0.8316678174628084 
 
 ### 7. 하이퍼파라미터 튜닝
+
 ```python
+# 교차검증설정
 from sklearn.model_selection import StratifiedKFold
 cv_splits = StratifiedKFold(n_splits=5, shuffle=True, random_state=41) # 5묶음으로 나누고 무작위로 섞은뒤 고정시드 41
+```
 
+```python
+# 기준모델로 시작
 gb_rate1d3 = GradientBoostingClassifier(n_estimators=100, max_depth=3, learning_rate=0.1, random_state=41)
 scores_gb_rate1d3 = cross_val_score(gb_rate1d3, X, y, cv=cv_splits, scoring='accuracy')
 
 print("lr=0.1, max_depth=3 GB CV 평균 정확도:", scores_gb_rate1d3.mean())
+```
+lr=0.1, max_depth=3 GB CV 평균 정확도: 0.8271922666499278  
+lr 0.05 감소
 
+```python
 gb_rate05d3 = GradientBoostingClassifier(n_estimators=100, max_depth=3, learning_rate=0.05, random_state=41)
 scores_gb_rate05d3 = cross_val_score(gb_rate05d3, X, y, cv=cv_splits, scoring='accuracy')
 
 print("lr=0.05, max_depth=3 GB CV 평균 정확도:", scores_gb_rate05d3.mean())
+```
+lr=0.05, max_depth=3 GB CV 평균 정확도: 0.8249450756386919  
+lr 0.1 복원, max_depth 5 증가
 
+```python
 gb_rate1d5 = GradientBoostingClassifier(n_estimators=100, max_depth=5, learning_rate=0.1, random_state=41)
 scores_gb_rate1d5 = cross_val_score(gb_rate1d5, X, y, cv=cv_splits, scoring='accuracy')
 
 print("lr=0.1, max_depth=5 GB CV 평균 정확도:", scores_gb_rate1d5.mean())
+```
+lr=0.1, max_depth=5 GB CV 평균 정확도: 0.8249325214989642  
+max_depth 5 유지, lr 0.05 감소
 
+```python
 gb_rate05d5 = GradientBoostingClassifier(n_estimators=100, max_depth=5, learning_rate=0.05, random_state=41)
 scores_gb_rate05d5 = cross_val_score(gb_rate05d5, X, y, cv=cv_splits, scoring='accuracy')
 
 print("lr=0.05, max_depth=5 GB CV 평균 정확도:", scores_gb_rate05d5.mean())
+```
+lr=0.05, max_depth=5 GB CV 평균 정확도: 0.8339338396836358  
+랜덤 포레스트로 변경 (max_depth=5, n_estimators=100)
 
+```python
 model_n100d5 = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=41)
 scores_n100d5 = cross_val_score(model_n100d5, X, y, cv=cv_splits, scoring='accuracy')
 
 print("max_depth=5, n_estimators=100 적용 평균 정확도:", scores_n100d5.mean())
+```
+max_depth=5, n_estimators=100 적용 평균 정확도: 0.8260812252840374  
+n_estimators 200 증가
 
+```python
 model_n200d5 = RandomForestClassifier(n_estimators=200, max_depth=5, random_state=41)
 scores_n200d5 = cross_val_score(model_n200d5, X, y, cv=cv_splits, scoring='accuracy')
 
 print("max_depth=5, n_estimators=200 적용 평균 정확도:", scores_n200d5.mean())
-
+```
+max_depth=5, n_estimators=200 적용 평균 정확도: 0.8249450756386919  
+n_estimators 100 복원, max_depth 7 증가
+#
+```python
 model_n100d7 = RandomForestClassifier(n_estimators=100, max_depth=7, random_state=41)
 scores_n100d7 = cross_val_score(model_n100d7, X, y, cv=cv_splits, scoring='accuracy')
 
 print("max_depth=7, n_estimators=100 적용 평균 정확도:", scores_n100d7.mean())
+```
+max_depth=7, n_estimators=100 적용 평균 정확도: 0.8182097796748478  
+max_depth 3 감소
 
+```python
 model_n100d3 = RandomForestClassifier(n_estimators=100, max_depth=3, random_state=41)
 scores_n100d3 = cross_val_score(model_n100d3, X, y, cv=cv_splits, scoring='accuracy')
 
 print("max_depth=3, n_estimators=100 적용 평균 정확도:", scores_n100d3.mean())
 ```
-
-lr=0.1, max_depth=3 GB CV 평균 정확도: 0.8271922666499278
-lr=0.05, max_depth=3 GB CV 평균 정확도: 0.8249450756386919
-lr=0.1, max_depth=5 GB CV 평균 정확도: 0.8249325214989642
-lr=0.05, max_depth=5 GB CV 평균 정확도: 0.8339338396836358
-max_depth=5, n_estimators=100 적용 평균 정확도: 0.8260812252840374
-max_depth=5, n_estimators=200 적용 평균 정확도: 0.8249450756386919
-max_depth=7, n_estimators=100 적용 평균 정확도: 0.8182097796748478
 max_depth=3, n_estimators=100 적용 평균 정확도: 0.8024982738057875
+
+### 8. 최종 평가
+
+```python
+# 최종 모델 설정
+best_model = GradientBoostingClassifier(n_estimators=100, max_depth=5, learning_rate=0.05, random_state=41)
+best_scores = cross_val_score(best_model, X, y, cv=cv_splits, scoring='accuracy')
+
+# 최종 모델 출력
+print("학습검증데이터 기반\n")
+print("최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스팅 모델")
+print("최종모델 검증 정확도 목록:", best_scores)
+print("최종모델 적용 평균 정확도:", best_scores.mean(),"\n")
+```
+학습검증데이터 기반
+
+최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스팅 모델
+최종모델 검증 정확도 목록: [0.81564246 0.82022472 0.85955056 0.80898876 0.85393258]
+최종모델 적용 평균 정확도: 0.8339338396836358 
+
+```python
+# 최종 모델 선정 이유 그래프화
+names = [
+    'GB (lr=0.1, depth=3)',
+    'GB (lr=0.05, depth=3)',
+    'GB (lr=0.1, depth=5)',
+    'GB (lr=0.05, depth=5)',
+    'RF (depth=5, n=100)',
+    'RF (depth=5, n=200)',
+    'RF (depth=7, n=100)',
+    'RF (depth=3, n=100)'
+]
+
+scores_list = [
+    scores_gb_rate1d3.mean(),
+    scores_gb_rate05d3.mean(),
+    scores_gb_rate1d5.mean(),
+    scores_gb_rate05d5.mean(),
+    scores_n100d5.mean(),
+    scores_n200d5.mean(),
+    scores_n100d7.mean(),
+    scores_n100d3.mean()
+]
+
+plt.figure(figsize=(10, 5))
+plt.barh(names, scores_list)
+plt.xlim(0.80, 0.84)
+plt.show()
+```
+
+print("\n테스트데이터 기반\n")
+print("최종모델 : 트리갯수 50 트리 깊이 5의 랜덤포레스트 모델")
+print("\n그래디언트 부스팅은 과적합되기 쉽기 때문에 학습검증정확도는 높게 나왔으나 테스트정확도는 낮게 나왔다")
+print("트리 깊이 또한 깊을수록 노이즈까지 과도하게 학습할 수 있으므로 트리깊이를 낮추니 학습검증정확도는 낮아졌으나 테스트정확도는 높아졌다\n")
+print("랜덤포레스트는 그래디언트 부스팅에 비해 학습검증정확도는 낮았으나 노이즈에 안정적이므로 테스트데이터는 가장 높게 나왔다")
