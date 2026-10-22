@@ -208,6 +208,7 @@ max_depth=3, n_estimators=100 적용 평균 정확도: 0.8024982738057875
 **모델별 정확도 시각화**
 
 - 하이퍼파라미터 튜닝을 진행한 모델들의 교차 검증 평균 정확도를 가로 막대 그래프로 시각화합니다.  
+
 ```python
 names = [
     'GB (lr=0.1, depth=3)',
@@ -236,6 +237,7 @@ plt.barh(names, scores_list)
 plt.xlim(0.80, 0.84)
 plt.show()
 ```
+
 ![타이타닉 정확도 그래프](/assets/titanic-accuracy-graph.png)
 
 ```python
@@ -249,6 +251,7 @@ print("최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스�
 print("최종모델 검증 정확도 목록:", best_scores)
 print("최종모델 적용 평균 정확도:", best_scores.mean(),"\n")
 ```
+
 학습검증데이터 기반
 
 최종모델 : 학습률 0.05 트리 깊이 5의 그래디언트 부스팅 모델
