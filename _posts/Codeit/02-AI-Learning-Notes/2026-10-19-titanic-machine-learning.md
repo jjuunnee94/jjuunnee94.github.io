@@ -2,7 +2,7 @@
 title: "Predicting Titanic Survival Rates using Machine Learning"
 date: 2026-10-19 19:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
-tags: [codeit, journal]
+tags: [codeit, titanic, machine-learning, scikit-learn, eda, hyperparameter-tuning, gradient-boosting, random-forest, 코드잇스프린트, AI, AI부트캠프 , AI엔지니어 , AI엔지니어취업 ]
 ---
 
 ### 타이타닉 생존자 예측
@@ -204,8 +204,11 @@ print("max_depth=3, n_estimators=100 적용 평균 정확도:", scores_n100d3.me
 max_depth=3, n_estimators=100 적용 평균 정확도: 0.8024982738057875
 
 ### 8. 최종 평가
+
+**모델별 정확도 시각화**
+
+- 하이퍼파라미터 튜닝을 진행한 모델들의 교차 검증 평균 정확도를 가로 막대 그래프로 시각화합니다.
 ```python
-# 모델별 정확도 그래프화
 names = [
     'GB (lr=0.1, depth=3)',
     'GB (lr=0.05, depth=3)',
