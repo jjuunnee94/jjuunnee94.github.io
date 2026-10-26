@@ -238,7 +238,7 @@ plt.xlim(0.80, 0.84)
 plt.show()
 ```
 
-![타이타닉 정확도 그래프](/assets/titanic-accuracy-graph.png)
+![타이타닉 정확도 그래프](/assets/mission/titanic-accuracy-graph.png)
 
 ```python
 # 최종 모델 설정
@@ -260,7 +260,7 @@ print("최종모델 적용 평균 정확도:", best_scores.mean(),"\n")
 
 테스트데이터 기반
 
-![최종 테스트 결과](/assets/final-test-result.png)
+![최종 테스트 결과](/assets/mission/final-test-result.png)
 
 최종모델 : 트리갯수 50 트리 깊이 5의 랜덤포레스트 모델  
 그래디언트 부스팅은 과적합되기 쉽기 때문에 학습검증정확도는 높게 나왔으나 테스트정확도는 낮게 나왔다.  
