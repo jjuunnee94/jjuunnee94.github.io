@@ -1,6 +1,6 @@
 ---
 title: "PyTorch Basic - 행렬곱과 모양"
-date: 2026-10-27 17:00:00 +0900
+date: 2026-10-27 12:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, matmul, broadcasting, view, reshape, squeeze, unsqueeze, cat, stack, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
