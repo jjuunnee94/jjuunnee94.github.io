@@ -215,10 +215,10 @@ for epoch in range(1, 5):
 - 기울기는 **방향(부호)과 크기**를 알려 주고, 학습률이 한 걸음의 크기를 정한다.
 - `backward()`는 기울기만, `step()`은 값만 바꾼다. 둘은 별개의 단계이다.
 - 기울기는 누적되므로 매 바퀴 `backward()` 전에 비운다.
-  
-  
-  
-  
-  
+
+&nbsp;
+
+&nbsp;
+
 이 글은 Codeit 강의를 수강하며 학습한 내용을 바탕으로 개인적으로 정리한 것입니다. ([Codeit 공식 사이트](https://codeit.kr/))
-{: .small .text-muted .text_center }
+{: .small .text-muted .text-center }
