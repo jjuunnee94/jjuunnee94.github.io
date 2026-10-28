@@ -97,17 +97,17 @@ tensor([[1.8000]], requires_grad=True) tensor([0.8000], requires_grad=True)
 - `backward()`를 부를 때마다 `.grad`에 값이 **더해진다.** (한 번 쓴 기울기를 지우지 않으면 다음 기울기와 합해진다.)
 
 ```python
-x = 2
-y = 10
-w = 3
-w.grad = -16
-lr = 0.05
+# x = 2
+# y = 10
+# w = 3
+# w.grad = -16
+# lr = 0.05
 
 with torch.no_grad():
     w -= lr * w.grad        # w: 3 → 3.8
 pred = w * x                # 새 예측 7.6
 loss = (pred - y) ** 2      # 5.76
-loss.backward
+loss.backward()
 print(w.grad)               # w.grad = 2 × 오차 × x
 ```
 ```
