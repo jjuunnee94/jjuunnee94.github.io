@@ -3,7 +3,6 @@ title: "PyTorch Basic - Tensor"
 date: 2026-10-26 16:50:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, tensor, shape, dtype, indexing, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
-codeit_notice: true
 ---
 
 ### 1. Tensor란?
@@ -125,3 +124,8 @@ print(scores[0, 2, 1])         # tensor(5)            1반 3번째 학생의 1�
 ```
 
 번호 하나로 고르면 방향이 사라져서 `(3,)`, `(2,)`가 되고, 구간으로 고르면 방향이 남아서 `(2, 2)`, `(2, 1)`이 됩니다. 정답 데이터를 `(N, 1)` 모양으로 맞춰야 하는 경우가 많아서 이 차이가 이후 학습 코드에서 계속 중요합니다.
+
+<div class="alert alert-info mt-4 mb-4" role="alert">
+  이 글은 Codeit 강의를 수강하며 학습한 내용을 바탕으로 개인적으로 정리한 것입니다. 
+  (공식 사이트: <a href="https://codeit.kr/" target="_blank" rel="noopener">https://codeit.kr/</a>)
+</div>
