@@ -3,7 +3,8 @@ title: "PyTorch Basic - Tensor"
 date: 2026-10-26 16:50:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, tensor, shape, dtype, indexing, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
-notice: "이 글은 Codeit 강의를 수강하며 학습한 내용을 바탕으로 개인적으로 정리한 것입니다. <br>(공식 사이트: https://codeit.kr/)"
+notice: "이 글은 Codeit 강의를 수강하며 학습한 내용을 바탕으로 개인적으로 정리한 것입니다.
+(공식 사이트: https://codeit.kr/)"
 ---
 
 ### 1. Tensor란?
