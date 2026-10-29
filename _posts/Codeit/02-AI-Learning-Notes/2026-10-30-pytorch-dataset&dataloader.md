@@ -111,13 +111,12 @@ print(ds[2])
 | --- | --- | --- |
 | `__init__` | 데이터를 받아 보관 | `MyData(x, y)`로 객체를 만들 때 |
 | `__len__` | 표본 개수 반환 | `len(ds)`를 호출할 때 |
-| `__getitem__` | `i`번째 표본 반환 | `ds[i]`를 호출할 때 |
+| `__getitem__` | `i+1`번째 데이터 반환 | `ds[i]`를 호출할 때 |
 
-- `len(ds)`는 `ds.__len__()`을, `ds[2]`는 `ds.__getitem__(2)`를 자동으로 실행한다.
-- `DataLoader`는 `__len__`으로 표본 수를 알고, `__getitem__(0)`, `__getitem__(1)`, ... 순서로 표본을 꺼내 batch로 쌓는다.
-- 메서드 이름은 반드시 `__len__`, `__getitem__`이어야 `DataLoader`가 인식한다.
+- `len(ds)` → `ds.__len__()`
+- `ds[2]` → `ds.__getitem__(2)`
 
-### 6. DataLoader로 학습하기
+### 5. DataLoader로 학습하기
 
 ```python
 x = torch.tensor([[1.], [2.], [3.], [4.], [5.], [6.]])
@@ -131,7 +130,7 @@ with torch.no_grad():
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 for epoch in range(1, 3):
-    for step, (xb, yb) in enumerate(loader, start=1):
+    for step, (xb, yb) in enumerate(loader, start=1): # enumerate(loader, start=1)`: 반복 번호를 1부터 붙인다.
         optimizer.zero_grad()
         pred = model(xb)
         loss = ((pred - yb) ** 2).mean()
@@ -150,42 +149,17 @@ epoch 2 step 2 | loss 9.9413 | w 2.7085 b 0.7194
 epoch 2 step 3 | loss 8.3368 | w 3.0272 b 0.7771
 ```
 
-- 반복문이 두 겹이다. 바깥 `for epoch`은 데이터 전체를 도는 횟수, 안쪽 `for ... in loader`는 batch를 꺼내는 반복이다.
-- 안쪽 반복이 한 번 돌 때가 step 1번이다. 한 epoch에 `step()`이 3번(= 6개 ÷ 2) 일어난다.
-- `enumerate(loader, start=1)`: 반복 번호를 1부터 붙인다. `(xb, yb)`는 batch에서 입력과 정답을 따로 받는 것이다.
-- `zero_grad` → 예측 → 손실 → `backward` → `step`은 이전 편과 같고, 입력이 `x` 전체에서 `xb`로 바뀐 것뿐이다.
-- `Loss`는 갱신 전 값이고 `w`, `b`는 `step()` 이후 값이다.
-
-**첫 step 직접 계산** (batch: `x = 1, 2` / `y = 5, 8`, 처음 `w = b = 0`)
+비교 : **첫 step 직접 계산** (batch: `x = 1, 2` / `y = 5, 8`, `w = b = 0`)
 
 ```
-예측 = 0, 0 → 오차 = −5, −8 → 손실 = (25 + 64) ÷ 2 = 44.5
+예측 = 0, 0 → 오차 = −5, −8 → 손실(평균) = (25 + 64) ÷ 2 = 44.5
 
 w 기울기 = 평균( 2×(−5)×1, 2×(−8)×2 ) = 평균(−10, −32) = −21
 b 기울기 = 평균( 2×(−5),   2×(−8)   ) = 평균(−10, −16) = −13
 
-새 w = 0 − 0.01 × (−21) = 0.21
-새 b = 0 − 0.01 × (−13) = 0.13
+새 w = 0 − (lr)0.01 × (−21) = 0.21
+새 b = 0 − (lr)0.01 × (−13) = 0.13
 ```
-
-- step 2는 batch `x = 3, 4` / `y = 11, 14`이다. 뒤쪽 표본일수록 정답이 크고 `w`는 아직 작아서 오차가 커진다. 그래서 batch 손실은 step마다 **들쭉날쭉**할 수 있다.
-- 한 epoch을 끝내고 2번째 epoch에 들어가면 `w`가 `2.4`까지 올라와서 손실이 `5.2`로 줄어든다.
-
-### 7. 정리
-
-| 개념 | 설명 |
-| --- | --- |
-| batch | 한 번에 모델에 넣는 표본 묶음 |
-| step | batch 하나로 한 번 갱신 |
-| epoch | 전체 표본을 한 바퀴 사용 (한 epoch의 step 수 = batch 개수) |
-| `Dataset` | 표본 보관, `__len__`과 `__getitem__` 제공 |
-| `DataLoader` | `Dataset`에서 `batch_size`개씩 `x`묶음과 `y`묶음으로 꺼냄 |
-| `shuffle=True` | epoch마다 표본 순서를 섞음 |
-| `drop_last=True` | 나누어떨어지지 않을 때 마지막 작은 batch를 버림 |
-
-- batch의 `xb`와 `yb`는 줄 위치로 짝이 맞는다.
-- 학습 코드는 전체 데이터를 쓸 때와 같고, 입력이 `x`에서 batch(`xb`, `yb`)로 바뀐다.
-- batch 손실은 batch마다 다른 데이터를 보므로 step마다 들쭉날쭉할 수 있다.
 
 &nbsp;
 
