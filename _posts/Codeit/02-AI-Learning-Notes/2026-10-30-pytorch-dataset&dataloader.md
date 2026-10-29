@@ -70,22 +70,14 @@ for xb, yb in loader:
 
 ### 3. shuffle과 drop_last
 
-**`shuffle=True`**: 매 epoch마다 표본 순서를 무작위로 섞어서 batch를 만든다.
+**`shuffle=True`**  : 매 epoch마다 표본 순서를 무작위로 섞어서 batch를 만든다.  
+**`shuffle=False`** : 매 epoch마다 표본 순서를 순서대로 batch를 만든다.  
 
-- 데이터가 정렬되어 있으면 앞쪽 batch는 비슷한 값만 보게 되어 갱신이 한쪽으로 치우친다.
-- 매 epoch마다 batch 조합이 달라지면 치우침이 줄어든다.
-- 실행할 때마다 순서가 달라지므로, 같은 결과를 보려면 `torch.manual_seed(...)`로 시드를 고정한다.
-- SGD의 **확률적(Stochastic)**이라는 이름은 무작위로 뽑은 일부 표본(batch)으로 기울기를 계산해 갱신한다는 뜻에서 나온다.
+**`drop_last=True`**  : 표본 수가 `batch_size`로 나누어떨어지지 않을 때 마지막 남은 batch를 버린다.  
+**`drop_last=False`** : 표본 수가 `batch_size`로 나누어떨어지지 않을 때 마지막 남은 batch를 한 묶음으로 한다.  
 
-**`drop_last=True`**: 표본 수가 `batch_size`로 나누어떨어지지 않을 때 마지막 작은 batch를 버린다.
-
-```python
-loader = DataLoader(ds, batch_size=4, shuffle=False, drop_last=True)
-```
-
-- 표본 6개, `batch_size=4`이면 batch는 1개이고 마지막 2개(`x = 5, 6`)는 사용되지 않는다.
-- 마지막 batch가 너무 작아 손실이 불안정해지는 것을 막고 싶을 때 쓴다. 기본값은 `False`이다.
-- `shuffle=True`와 함께 쓰면 버려지는 표본이 epoch마다 달라진다.
+- 미작성시 둘 다 기본값은 `False`
+- `shuffle=True`와 `drop_last=True`를 함께 쓰면 버려지는 표본이 epoch마다 달라진다.
 
 ### 5. 직접 만드는 Dataset
 
