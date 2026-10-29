@@ -4,15 +4,16 @@ date: 2026-10-29 17:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, dataset, dataloader, batch, epoch, shuffle, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
+
 **용어 먼저!**
 
 - **표본(sample)** : 데이터 한 줄
 - **batch** : 한 번에 모델에 넣는 표본 묶음
 - **batch_size** : batch 하나에 들어가는 표본 수
-- **step** : batch 하나를 수행하는 것 ( 예측 → 손실 → 역전파 → 실행 )
-- **epoch** : 전체 표본 수행 반복 수
-
-### 1. Dataset
+- **step** : batch 하나를 수행하는 것 ( 예측 → 손실 → 역전파 → 갱신 )
+- **epoch** : 전체 표본을 한 바퀴 다 사용한 것
+  
+### 1. batch와 Dataset
 
 ```
 표본:  ①  ②  ③  ④  ⑤  ⑥
@@ -61,10 +62,10 @@ for xb, yb in loader:
 [[1.0], [2.0], [3.0], [4.0]] [[5.0], [8.0], [11.0], [14.0]]
 [[5.0], [6.0]] [[17.0], [20.0]]
 ```
-| batch. 1 | batch. 2 |
-| --- | --- |
-| [[1.0], [2.0], [3.0], [4.0]]    |  [[5.0], [6.0]] |
-| [[5.0], [8.0], [11.0], [14.0]]  | [[17.0], [20.0]] |
+| | batch. 1 | batch. 2 |
+| --- | --- | --- |
+| xb | [[1.0], [2.0], [3.0], [4.0]]    |  [[5.0], [6.0]] |
+| yb | [[5.0], [8.0], [11.0], [14.0]]  | [[17.0], [20.0]] |
 - 마지막 batch는 남은 표본
 - shape는 `(표본 수, 특성 수)`이다. 위 예시는 `(4, 1)`과 `(2, 1)`이다.
 
@@ -74,14 +75,14 @@ for xb, yb in loader:
 **`shuffle=False`** : 매 epoch마다 표본 순서를 순서대로 batch를 만든다.  
 
 **`drop_last=True`**  : 표본 수가 `batch_size`로 나누어떨어지지 않을 때 마지막 남은 batch를 버린다.  
-**`drop_last=False`** : 표본 수가 `batch_size`로 나누어떨어지지 않을 때 마지막 남은 batch를 한 묶음으로 한다.  
+**`drop_last=False`** : 표본 수가 `batch_size`로 나누어떨어지지 않을 때 마지막 남은 batch를 그대로 사용한다.  
 
 - 미작성시 둘 다 기본값은 `False`
 - `shuffle=True`와 `drop_last=True`를 함께 쓰면 버려지는 표본이 epoch마다 달라진다.
 
 ### 4. Dataset 만들기
 
-- 데이터가 파일이나 가공해야 하면 `Dataset`을 직접 정의한다.
+- 데이터가 파일을 꺼낼 때 가공이 필요하면 `Dataset`을 직접 정의한다.
 
 ```python
 from torch.utils.data import Dataset
@@ -111,7 +112,7 @@ print(ds[2])
 | --- | --- | --- |
 | `__init__` | 데이터를 받아 보관 | `MyData(x, y)`로 객체를 만들 때 |
 | `__len__` | 표본 개수 반환 | `len(ds)`를 호출할 때 |
-| `__getitem__` | `i+1`번째 데이터 반환 | `ds[i]`를 호출할 때 |
+| `__getitem__` | `i`번째 표본 반환 | `ds[i]`를 호출할 때 |
 
 - `len(ds)` → `ds.__len__()`
 - `ds[2]` → `ds.__getitem__(2)`
@@ -119,6 +120,8 @@ print(ds[2])
 ### 5. DataLoader로 학습하기
 
 ```python
+from torch import nn
+
 x = torch.tensor([[1.], [2.], [3.], [4.], [5.], [6.]])
 y = torch.tensor([[5.], [8.], [11.], [14.], [17.], [20.]])
 loader = DataLoader(TensorDataset(x, y), batch_size=2, shuffle=False)
@@ -130,7 +133,7 @@ with torch.no_grad():
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 for epoch in range(1, 3):
-    for step, (xb, yb) in enumerate(loader, start=1): # enumerate(loader, start=1)`: 반복 번호를 1부터 붙인다.
+    for step, (xb, yb) in enumerate(loader, start=1): # enumerate(loader, start=1) : 반복 번호를 1부터 붙인다.
         optimizer.zero_grad()
         pred = model(xb)
         loss = ((pred - yb) ** 2).mean()
@@ -148,6 +151,7 @@ epoch 2 step 1 | loss 5.2210 | w 2.4860 b 0.6565
 epoch 2 step 2 | loss 9.9413 | w 2.7085 b 0.7194
 epoch 2 step 3 | loss 8.3368 | w 3.0272 b 0.7771
 ```
+- Loss는 갱신 전 값이고 w, b는 step() 이후 값
 
 비교 : **첫 step 직접 계산** (batch: `x = 1, 2` / `y = 5, 8`, `w = b = 0`)
 
