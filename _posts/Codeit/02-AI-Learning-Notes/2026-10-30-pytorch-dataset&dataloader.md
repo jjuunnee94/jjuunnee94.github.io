@@ -1,6 +1,6 @@
 ---
 title: "PyTorch Basic - Dataset과 DataLoader"
-date: 2026-10-30 17:00:00 +0900
+date: 2026-10-29 17:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, dataset, dataloader, batch, epoch, shuffle, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
@@ -79,9 +79,9 @@ for xb, yb in loader:
 - 미작성시 둘 다 기본값은 `False`
 - `shuffle=True`와 `drop_last=True`를 함께 쓰면 버려지는 표본이 epoch마다 달라진다.
 
-### 5. 직접 만드는 Dataset
+### 4. Dataset 만들기
 
-- 데이터가 파일이나 이미지이거나 꺼낼 때 가공해야 하면 `Dataset`을 상속해서 직접 정의한다.
+- 데이터가 파일이나 가공해야 하면 `Dataset`을 직접 정의한다.
 
 ```python
 from torch.utils.data import Dataset
