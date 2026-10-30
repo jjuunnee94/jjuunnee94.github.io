@@ -1,5 +1,5 @@
 ---
-title: "PyTorch Basic - 01. ~ 05. 학습 코드 총정리 by AI"
+title: "PyTorch Basic - 요약정리 PyTorch - 01. ~ 05. by AI"
 date: 2026-10-30 16::00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, review, autograd, nn-module, nn-linear, dataloader]
