@@ -6,7 +6,7 @@ tags: [codeit, pytorch, dataset, dataloader, batch, epoch, shuffle, 코드잇스
 ---
 
 **용어 먼저!**
-
+ 
 - **표본(sample)** : 데이터 한 줄
 - **batch** : 한 번에 모델에 넣는 표본 묶음
 - **batch_size** : batch 하나에 들어가는 표본 수
