@@ -1,6 +1,6 @@
 ---
 title: "PyTorch Basic - Dataset과 DataLoader"
-date: 2026-10-30 09:00:00 +0900
+date: 2026-10-30 010:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, dataset, dataloader, batch, epoch, shuffle, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
