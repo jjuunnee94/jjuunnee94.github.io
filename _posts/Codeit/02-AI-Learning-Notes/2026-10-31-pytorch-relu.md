@@ -1,6 +1,6 @@
 ---
 title: "PyTorch Basic - ReLU와 MLP"
-date: 2026-10-31 24:00:00 +0900
+date: 2026-10-31 17:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, relu, mlp, nn-linear, forward, 비선형, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
