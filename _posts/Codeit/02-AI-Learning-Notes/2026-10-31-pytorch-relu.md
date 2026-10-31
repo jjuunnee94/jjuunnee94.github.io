@@ -7,6 +7,8 @@ tags: [codeit, pytorch, relu, mlp, nn-linear, forward, 비선형, 코드잇스�
 
 ### 1. 직선 모델의 한계
 
+![직선 모델의 한계 그래프](/assets/weekly-paper/10-31-relu.1.png)
+
 - 지금까지의 모델은 `예측 = w × x + b`이다. `x`가 어디에 있든 기울기가 `w` 하나로 고정된 **직선**이다.
 - 양쪽 끝이 모두 높은 U자 모양의 데이터를 보자.
 
