@@ -60,9 +60,9 @@ tensor([0., 0., 0., 2., 4.])
 ![변형된 ReLU 그래프와 꺾이는 지점](/assets/weekly-paper/10-31-relu.2.png)
 
 - `x`가 1 이하이면 `z = x − 1`이 0 이하이므로 `ReLU`가 0으로 만든다.  
-  그러면 `h = 0`이고 `out = 2 × 0 + 1 = 1`로 `x`가 1이하일때 `out`은 항상 1이다.  
+  그러면 `h = 0`이고 `out = 2 × 0 + 1 = 1`로 `x`가 1 이하일 때 `out`은 항상 1이다.  
 - `x`가 1보다 크면 `z`가 양수이므로 `ReLU`를 그대로 통과한다.  
-  그러면 `h = z`이고 `out = 2 × (x − 1) + 1`로 `x`가 1 증가하면 `out`은 `2`씩 **증가한다**.  
+  그러면 `h = z`이고 `out = 2 × (x − 1) + 1`로 `x`가 1 증가하면 `out`은 `2`씩 증가한다.  
 - `ReLU`는 입력이 0일 때 꺾이는데 입력이 `x − 1`이므로, `x = 1`에서 꺾인다.
 - 꺾이는 지점을 여러 개 만들면 U자 같은 모양도 만들 수 있다.
 
@@ -140,11 +140,7 @@ torch.Size([5, 1]) 0.5000
 | `ReLU` → `h` | (4, 3) | 값만 바뀌고 모양은 그대로 |
 | `Linear(3, 1)` → `pred` | (4, 1) | 표본마다 값 1개로 합침 |
 
-```
-x=1 → z=[1, −1, 1]  → h=[1, 0, 1]  → pred = 1×1 + 1×0 + 1×1 = 2
-```
-
-### 5. nn.linear등록과 forward호출
+### 5. nn.Linear 등록과 forward호출
 
 - `__init__`에서 `self.이름 = nn.Linear(...)`로 선언하면 **등록**은 자동으로 된다. 하지만 실제로 계산에 쓰이려면 `forward`에서 호출해야 한다.
 
@@ -163,7 +159,7 @@ loss = m(torch.tensor([[1.]])).sum()
 loss.backward()
 
 for name, p in m.named_parameters():
-    print(name, p.grad is None)       # 기울기 존재 False / 기울기 none True
+    print(name, p.grad is None)       # 기울기 존재 → False / 기울기 none → True
 ```
 
 ```
