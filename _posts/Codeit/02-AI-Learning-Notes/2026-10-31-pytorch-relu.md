@@ -11,7 +11,7 @@ tags: [codeit, pytorch, relu, mlp, nn-linear, forward, 비선형, 코드잇스�
 
 **[ y = x² ]**
 
-|  **`x`** | -2 | -1 | 0 | 1 | 2 |
+| 구분 | **x = -2** | **x = -1** | **x = 0** | **x = 1** | **x = 2** |
 |---|---|---|---|---|---|
 |  **`y`** | 4 | 1 | 0 | 1 | 4 |
 
@@ -51,7 +51,7 @@ tensor([0., 0., 0., 2., 4.])
 
 **ReLU 변형하기**
 
-|  **`x`** | -2 | -1 | 0 | 1 | 2 |
+| 구분 | **x = -2** | **x = -1** | **x = 0** | **x = 1** | **x = 2** |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **`z = x − 1`** | -3 | -2 | -1 | 0 | 1 |
 | **`h = ReLU(z)`** | 0 | 0 | 0 | 0 | 1 |
@@ -68,8 +68,6 @@ tensor([0., 0., 0., 2., 4.])
 
 ### 3. MLP: Linear → ReLU → Linear
 
-- 층을 쌓은 모델을 **MLP**(다층 퍼셉트론)라고 한다.
-
 ```
 입력 x → Linear → ReLU → Linear → 예측
 ```
@@ -80,19 +78,18 @@ tensor([0., 0., 0., 2., 4.])
 
 **직접 정한 값으로 U자 만들기**
 
-- 첫 번째 `Linear(1, 2)`: `z₁ = x`, `z₂ = −x`
+- 첫 번째 `Linear(1, 2)`: `z₁ = x`, `z₂ = −x` 가중치 w1 = 1, 가중치 w2 = -1
 - `ReLU`: `h₁ = ReLU(x)`, `h₂ = ReLU(−x)`
-- 두 번째 `Linear(2, 1)`: `예측 = 1.5 × h₁ + 1.5 × h₂`
+- 두 번째 `Linear(2, 1)`: `예측 = 1.5 × h₁ + 1.5 × h₂` 가중치 w3, w4 = 1.5
 
-```
-x       :  −2    −1     0     1     2
-z₁ = x  :  −2    −1     0     1     2
-z₂ = −x :   2     1     0    −1    −2
-h₁      :   0     0     0     1     2
-h₂      :   2     1     0     0     0
-예측     :   3   1.5     0   1.5     3
-정답 y   :   4     1     0     1     4
-```
+| 구분 | **x = -2** | **x = -1** | **x = 0** | **x = 1** | **x = 2** |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **`z₁ = x`** | -2 | -1 | 0 | 1 | 2 |
+| **`z₂ = −x`** | 2 | 1 | 0 | -1 | -2 |
+| **`h₁ = ReLU(z₁)`** | 0 | 0 | 0 | 1 | 2 |
+| **`h₂ = ReLU(z₂)`** | 2 | 1 | 0 | 0 | 0 |
+| **`예측 (out)`** | **3** | **1.5** | **0** | **1.5** | **3** |
+| **`정답 (y = x²)`** | **4** | **1** | **0** | **1** | **4** |
 
 - `h₁`은 오른쪽만, `h₂`는 왼쪽만 올라가서 합치면 양쪽 끝이 높은 U자가 된다.
 - 오차는 `−1, 0.5, 0, 0.5, −1`이고 손실은 `(1 + 0.25 + 0 + 0.25 + 1) ÷ 5 = 0.5`이다. 직선의 최선(`2.8`)보다 훨씬 작다.
@@ -147,30 +144,7 @@ torch.Size([5, 1]) 0.5000
 x=1 → z=[1, −1, 1]  → h=[1, 0, 1]  → pred = 1×1 + 1×0 + 1×1 = 2
 ```
 
-- 줄(표본 수)은 층을 지나도 변하지 않는다. 층은 표본 하나하나에 똑같이 적용된다.
-- 칸은 `Linear(입력, 출력)`에서 입력 칸 수가 출력 칸 수로 바뀐다.
-- `ReLU`는 모양을 바꾸지 않는다.
-- 앞 층의 출력 칸 수와 다음 층의 입력 칸 수가 같아야 한다. 행렬곱으로는 `(4, 1) @ (1, 3) → (4, 3)`, `(4, 3) @ (3, 1) → (4, 1)`이다.
-
-### 5. ReLU가 없으면 직선이 된다
-
-- `Linear`를 몇 개 쌓아도 `ReLU` 같은 꺾는 함수가 없으면 결국 직선이다.
-
-```
-첫 번째 층:  z   = 2x + 1
-두 번째 층:  out = 3z − 4
-
-out = 3 × (2x + 1) − 4 = 6x − 1
-```
-
-```
-x   :  0    1    2
-out : −1    5   11        (1 늘 때마다 6씩 증가)
-```
-
-- 층이 두 개여도 합치면 `w × x + b` 꼴의 직선이다.
-
-### 6. 층 선언과 forward 연결
+### 5. nn.linear등록과 forward호출
 
 - `__init__`에서 `self.이름 = nn.Linear(...)`로 선언하면 **등록**은 자동으로 된다. 하지만 실제로 계산에 쓰이려면 `forward`에서 호출해야 한다.
 
@@ -179,17 +153,17 @@ class Unused(nn.Module):
     def __init__(self):
         super().__init__()
         self.a = nn.Linear(1, 1)
-        self.b = nn.Linear(1, 1)    # 선언만 하고 forward에서 사용하지 않음
+        self.b = nn.Linear(1, 1)    # 등록
 
-    def forward(self, x):
-        return self.a(x)
+    def forward(self, x): 
+        return self.a(x) # a만 호출
 
 m = Unused()
 loss = m(torch.tensor([[1.]])).sum()
 loss.backward()
 
 for name, p in m.named_parameters():
-    print(name, p.grad is None)
+    print(name, p.grad is None)       # 기울기 존재 False / 기울기 none True
 ```
 
 ```
@@ -198,92 +172,6 @@ a.bias False
 b.weight True
 b.bias True
 ```
-
-- `b`는 등록되어 `named_parameters()`에 나오지만 계산에 쓰이지 않아 기울기가 `None`이다.
-- 기울기가 없으면 `optimizer.step()`에서 값이 바뀌지 않는다.
-- `self.act = nn.ReLU()`를 선언하고 `forward`에서 `h = self.act(z)`를 빠뜨리면 `Linear` 두 개만 쌓은 직선 모델이 된다. 에러가 나지 않아서 알아채기 어렵다.
-- **선언 = 등록**, **forward에서 호출 = 실제 계산**이다.
-
-### 7. MLP 학습하기
-
-- 학습 한 바퀴를 함수로 묶는다.
-
-```python
-def train(model, x, y, optimizer, steps):
-    history = []
-    for _ in range(steps):
-        optimizer.zero_grad()
-        pred = model(x)
-        loss = ((pred - y) ** 2).mean()
-        loss.backward()
-        optimizer.step()
-        history.append(loss.item())
-    return history
-```
-
-```python
-model = UShape()
-with torch.no_grad():
-    model.layer1.weight.copy_(torch.tensor([[0.5], [-0.5]]))
-    model.layer1.bias.copy_(torch.tensor([0.1, 0.1]))
-    model.layer2.weight.copy_(torch.tensor([[0.5, 0.5]]))
-    model.layer2.bias.zero_()
-
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-history = train(model, x, y, optimizer, steps=300)
-print([f"{history[i]:.4f}" for i in (0, 1, 2, 9)])
-with torch.no_grad():
-    print([round(v, 3) for v in model(x).flatten().tolist()])
-```
-
-```
-['4.9590', '2.9426', '1.7556', '0.5806']
-[3.999, 1.002, -0.004, 1.002, 3.999]
-```
-
-- 기록된 손실은 그 step에서 갱신 전 값이다.
-- 처음 손실 `4.9590`에서 10번째 step에는 `0.58`까지 줄고, 300번 학습한 뒤 예측은 정답(`4, 1, 0, 1, 4`)에 거의 가까워진다.
-- 직선 모델의 최선이 `2.8`이었는데 MLP는 거의 `0`까지 내려간다.
-- 숫자는 환경에 따라 마지막 자리가 조금 다를 수 있다.
-
-**처음 손실 직접 계산** (`x = −2`)
-
-```
-z₁ = 0.5 × (−2) + 0.1 = −0.9
-z₂ = −0.5 × (−2) + 0.1 = 1.1
-h₁ = 0,  h₂ = 1.1
-pred = 0.5 × 0 + 0.5 × 1.1 = 0.55    (정답 4, 오차 −3.45)
-```
-
-- 같은 방식으로 `x = 0`에서는 `z₁ = z₂ = 0.1`, `pred = 0.1`, 오차 `0.1`이다. 다섯 점의 오차 제곱 평균이 `4.959`이다.
-
-**초기값과 시드**
-
-- `nn.Linear`는 가중치를 무작위로 초기화하므로 실행마다 결과가 달라진다. 같은 결과를 원하면 모델을 만들기 전에 `torch.manual_seed(0)`으로 시드를 고정한다.
-- 시드를 고정해도 파이토치 버전이나 장치가 다르면 같은 숫자를 보장하지는 않는다.
-
-**shape 확인**
-
-- 학습 함수 안에서 예측과 정답의 shape가 같은지 확인하면 안전하다.
-
-```python
-if pred.shape != y.shape:
-    raise ValueError(f"prediction {pred.shape} and target {y.shape} must match")
-```
-
-- `(N, 1)`과 `(N,)`을 섞으면 브로드캐스팅으로 `(N, N)`이 되어 에러 없이 손실이 틀어진다.
-
-### 8. 정리
-
-| 개념 | 설명 |
-| --- | --- |
-| 직선 모델의 한계 | 기울기가 하나라서 U자 같은 모양을 만들 수 없다 |
-| `ReLU` | 음수는 0, 양수는 그대로. 직선을 꺾는다 |
-| MLP | `Linear → ReLU → Linear`로 층을 쌓은 모델 |
-| 층 shape | 줄(표본 수)은 유지, 칸은 `Linear(입력, 출력)`에서 바뀐다 |
-| `ReLU` 없는 층 쌓기 | 합치면 결국 직선 |
-| 선언과 forward | 선언은 등록, `forward`에서 호출해야 실제로 계산에 쓰인다 |
-| 학습 | 기존 학습 루프(`zero_grad` → 예측 → 손실 → `backward` → `step`) 그대로 |
 
 &nbsp;
 
