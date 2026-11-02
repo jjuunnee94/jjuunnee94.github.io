@@ -168,6 +168,7 @@ tensor([0.2447, 0.6652, 0.0900])
 - 정답에 높은 확률을 줄수록 손실이 작아지고, 낮은 확률을 줄수록 손실이 커진다.
 - 정답 확률이 1이면 `−ln(1) = 0`이다.
 - softmax → 정답 확률 → −ln 전체를 `nn.CrossEntropyLoss` 하나가 처리한다.
+- softmax는 함수 안에서 처리하므로, `logits`를 **그대로** 넣는다. 확률로 바꾼 값을 넣으면 softmax가 두 번 적용된다.
 
 ```python
 from torch import nn
