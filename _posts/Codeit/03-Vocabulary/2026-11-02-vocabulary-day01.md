@@ -1,7 +1,7 @@
 ---
 title: "[하루 10개 개발 영단어장] Day_01"
 date: 2026-11-02 09:00:00 +0900
-categories: [codeit, Vocabulary]
+categories: [codeit, 03-Vocabulary]
 tags: [pytorch, machinelearning, python, terms]
 math: true
 ---
