@@ -1,7 +1,7 @@
 ---
-title: "[개발 영단어장] Day 01. 파이토치 및 머신러닝 핵심 약어 & 용어"
+title: "[하루 10개 개발 영단어장] Day_01"
 date: 2026-11-02 09:00:00 +0900
-categories: [Dev, Vocabulary]
+categories: [codeit, Vocabulary]
 tags: [pytorch, machinelearning, python, terms]
 math: true
 ---
