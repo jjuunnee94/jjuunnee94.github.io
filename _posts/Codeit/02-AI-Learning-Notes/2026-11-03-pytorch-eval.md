@@ -4,7 +4,7 @@ date: 2026-11-03 09:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, eval, no-grad, state-dict, torch-save, allclose, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
-
+ 
 ### 1. 학습과 평가
 
 - **학습**: `forward → loss → backward → step`으로 파라미터를 고친다.
