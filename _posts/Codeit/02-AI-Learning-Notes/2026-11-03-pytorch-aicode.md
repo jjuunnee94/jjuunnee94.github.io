@@ -34,9 +34,9 @@ train_loader = DataLoader(TensorDataset(x_train, y_train),           # 같은 �
 class MLP(nn.Module):                                  # 계산 구조와 파라미터를 하나로 묶는 모델 클래스
     def __init__(self):
         super().__init__()                             # nn.Module의 기능(파라미터 등록 등)을 사용하기 위한 준비
-        self.layer1 = nn.Linear(1, 8)                  # 입력 1개 → 값 8개를 만드는 첫 번째 Linear (w, b가 자동 등록된다.)
+        self.layer1 = nn.Linear(1, 8)                  # 입력 1개 → 임의의 값 8개를 만드는 첫 번째 Linear (w, b가 자동 등록된다.)
         self.act = nn.ReLU()                           # 음수는 0으로 만들어 직선을 꺾는다.
-        self.layer2 = nn.Linear(8, 2)                  # 값 8개 → class 2개의 점수(logits)를 만드는 두 번째 Linear
+        self.layer2 = nn.Linear(8, 2)                  # 값 8개 → class 2개(y값 0또는1)의 점수(logits)를 만드는 두 번째 Linear
 
     def forward(self, x):                              # model(x)를 호출하면 실행되는 계산 순서
         z = self.layer1(x)                             # (N, 1) → (N, 8)
