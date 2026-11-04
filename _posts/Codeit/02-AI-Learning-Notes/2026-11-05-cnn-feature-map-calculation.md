@@ -32,6 +32,7 @@ math : true
 - 한 칸을 구한 뒤 필터를 한 칸씩 옮기며 같은 계산을 반복한다. **필터 값은 그대로이고, 필터 아래에 놓이는 입력 패치만 바뀐다.** 이것이 가중치 공유이다.
 
 📍 [예시]
+
 | 입력 (4×4) |  필터 |
 | :---: | :---: |
 | 1 &nbsp; 2 &nbsp; 0 &nbsp; 1<br>3 &nbsp; 1 &nbsp; 1 &nbsp; 2<br>2 &nbsp; 0 &nbsp; 4 &nbsp; 0<br>1 &nbsp; 3 &nbsp; 2 &nbsp; 1 | 1 &nbsp; 1 &nbsp; 1<br>0 &nbsp; 0 &nbsp; 0<br>-1 &nbsp; -1 &nbsp; -1 |
@@ -70,9 +71,9 @@ print(conv.weight.shape)
 with torch.no_grad():
     conv.weight.copy_(K.reshape(1, 1, 3, 3))  # copy_ : 끝에 _가 붙은 함수는 원본을 직접 바꿈
 
-out = conv(x) 
+out = conv(x)
 print(out.shape)
-print(out[0, 0].detach())  # 앞의 두자리 뺴고 뒤의 특징맵만 호출
+print(out[0, 0].detach())  # 앞의 두자리 빼고 뒤의 특징맵만 호출
 ```
 
 ```
