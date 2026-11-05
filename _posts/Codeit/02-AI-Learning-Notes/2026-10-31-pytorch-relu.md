@@ -7,7 +7,7 @@ tags: [codeit, pytorch, relu, mlp, nn-linear, forward, 비선형, 코드잇스�
 
 ### 1. 직선 모델의 한계
 
-![직선 모델의 한계 그래프](/assets/weekly-paper/10-31-relu.1.png)
+![직선 모델의 한계 그래프](/assets/02-AI-Learning-Notes/10-31-relu.1.png)
 
 **[ y = x² ]**
 
@@ -57,7 +57,7 @@ tensor([0., 0., 0., 2., 4.])
 | **`h = ReLU(z)`** | 0 | 0 | 0 | 0 | 1 |
 | **`out(변형) = 2 × h + 1`** | 1 | 1 | 1 | 1 | 3 |
 
-![변형된 ReLU 그래프와 꺾이는 지점](/assets/weekly-paper/10-31-relu.2.png)
+![변형된 ReLU 그래프와 꺾이는 지점](/assets/02-AI-Learning-Notes/10-31-relu.2.png)
 
 - `x`가 1 이하이면 `z = x − 1`이 0 이하이므로 `ReLU`가 0으로 만든다.  
   그러면 `h = 0`이고 `out = 2 × 0 + 1 = 1`로 `x`가 1 이하일 때 `out`은 항상 1이다.  

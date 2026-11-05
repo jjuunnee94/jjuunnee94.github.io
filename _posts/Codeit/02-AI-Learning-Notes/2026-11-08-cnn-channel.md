@@ -18,7 +18,7 @@ math : true
 
 🖼️ [그림] 개념 설명용 그림(실제 필터 결과 아님)
 
-![같은 RGB 입력에 필터 4개를 적용해 출력 채널 4개가 되는 그림](/assets/weekly-paper/11-08-cnn_channel.png)
+![같은 RGB 입력에 필터 4개를 적용해 출력 채널 4개가 되는 그림](/assets/02-AI-Learning-Notes/11-08-cnn_channel.png)
 
 ### 2. 📍 [예시] 필터 하나로 한 칸 만들기
 

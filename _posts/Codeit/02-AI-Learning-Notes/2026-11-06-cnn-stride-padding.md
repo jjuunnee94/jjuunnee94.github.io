@@ -13,7 +13,7 @@ math: true
 
 **📍 [예시] 한 축으로 보기 (입력 길이 5, 필터 길이 3)**
 
-![stride 1과 2에서 필터 시작 위치 비교](/assets/weekly-paper/11-06-cnn_stride.png)
+![stride 1과 2에서 필터 시작 위치 비교](/assets/02-AI-Learning-Notes/11-06-cnn_stride.png)
 
 | stride | 필터 시작 위치 | 출력 길이 |
 | --- | --- | --- |
@@ -28,11 +28,11 @@ math: true
 - **padding**은 입력의 위·아래·왼쪽·오른쪽에 **0을 한 줄씩** 덧대는 것이다. padding=1이면 5×5가 7×7이 된다.
 - 덧댄 0은 원래 있던 픽셀이 아니라 **계산용 값**이다.
 
-![5×5 입력에 padding 1을 덧대 7×7이 된 모습](/assets/weekly-paper/11-06-cnn_padding.png)
+![5×5 입력에 padding 1을 덧대 7×7이 된 모습](/assets/02-AI-Learning-Notes/11-06-cnn_padding.png)
 
 **칸마다 몇 번씩 읽히는가 (5×5 입력, 3×3 필터, stride 1)**
 
-![5×5 입력에서 칸마다 읽히는 개수 (padding 0과 1 비교)](/assets/weekly-paper/11-06-cnn_coverage.png)
+![5×5 입력에서 칸마다 읽히는 개수 (padding 0과 1 비교)](/assets/02-AI-Learning-Notes/11-06-cnn_coverage.png)
 
 - padding=0이면 모서리 칸은 창 **1개**에만 들어가고 한가운데 칸은 **9개**에 들어간다.
 - padding=1이면 모서리 칸도 4개의 창에 들어가서 가장자리의 차이가 줄어든다.

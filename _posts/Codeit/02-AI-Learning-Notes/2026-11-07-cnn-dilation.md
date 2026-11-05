@@ -13,7 +13,7 @@ math : true
 - 건너뛴 칸은 **계산하지 않는다.**
 - 기본 필터는 3×3(가중치 9개)이고, 입력에서 읽는 **범위**만 넓어진다.
 
-![dilation 1과 2에서 필터가 읽는 9개 칸 비교](/assets/weekly-paper/11-07-cnn_dilation.png)
+![dilation 1과 2에서 필터가 읽는 9개 칸 비교](/assets/02-AI-Learning-Notes/11-07-cnn_dilation.png)
 
 ### 2. 유효 커널 크기와 출력 크기 계산법
 

@@ -89,7 +89,7 @@ torch.Size([3, 5])
 
 🖼️ **[그림]**
 
-![TinyCNN 모양 변화](/assets/weekly-paper/11-10-cnn_tinycnn.png)
+![TinyCNN 모양 변화](/assets/02-AI-Learning-Notes/11-10-cnn_tinycnn.png)
 
 | 단계 | 모양 | 계산 |
 |:---:|:---:|:---:|
