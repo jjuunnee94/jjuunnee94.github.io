@@ -5,8 +5,6 @@ categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, pytorch, tensor, shape, dtype, indexing, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/pytorch_basic_practice.ipynb)
-
 ### 1. Tensor란?
 
 **Tensor**는 같은 종류의 숫자를 격자 모양으로 담아 두는 PyTorch의 기본 자료구조입니다.
