@@ -45,6 +45,8 @@ math : true
 
 ### 3. 코드
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/cnn_practice.ipynb)
+
 📌 [참고] `nn.Conv2d`의 필터는 원래 학습으로 정하는 값이지만, 계산 원리를 보려고 직접 정한 값을 넣는다.
 
 ```python
