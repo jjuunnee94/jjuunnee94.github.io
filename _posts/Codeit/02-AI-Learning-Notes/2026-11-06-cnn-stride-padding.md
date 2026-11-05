@@ -70,6 +70,8 @@ $$
 
 ### 4. 💻 [코드]
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/cnn_practice.ipynb)
+
 ```python
 import torch
 from torch import nn
