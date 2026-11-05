@@ -1,5 +1,5 @@
 ---
-title: "CNN - Stride와 Padding"
+title: "CNN - 03. Stride와 Padding"
 date: 2026-11-06 09:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, cnn, stride, padding, output-size, conv2d, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
