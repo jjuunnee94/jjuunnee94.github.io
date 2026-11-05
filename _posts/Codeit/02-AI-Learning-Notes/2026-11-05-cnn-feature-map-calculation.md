@@ -1,5 +1,5 @@
 ---
-title: "CNN - 합성곱 계산과 특징맵"
+title: "CNN - 02. 합성곱 계산과 특징맵"
 date: 2026-11-05 09:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, cnn, convolution, filter, feature-map, conv2d, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
