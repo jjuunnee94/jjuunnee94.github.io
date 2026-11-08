@@ -1,5 +1,5 @@
 ---
-title: "Weekly paper #6"
+title: "Weekly paper #7"
 date: 2026-11-05 17:00:00 +0900
 categories: [Codeit, '01-Weekly-Paper']
 tags: [codeit, WeeklyPaper]
