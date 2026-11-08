@@ -109,36 +109,33 @@ $$
 | 1 | $2.718/11.107$ | 0.245 |
 | 2 | $1/11.107$ | 0.090 |
 
-## 4. 💻 [코드]
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/cnn_practice.ipynb)
-
 ```python
 import torch
 from torch import nn
+import torch.nn.functional as F
 
-# LeNet 모양 확인
-x = torch.zeros(1, 1, 32, 32)               # 이미지 1장, 1채널, 32x32
-conv1 = nn.Conv2d(1, 6, 5)                  # 채널 1→6, 5x5 (padding=0)
-conv2 = nn.Conv2d(6, 16, 5)                 # 채널 6→16, 5x5
-pool = nn.MaxPool2d(2)                      # 2x2 풀링
+# LeNet 모양 확인
+x = torch.zeros(1, 1, 32, 32)               # 이미지 1장, 1채널, 32x32
+conv1 = nn.Conv2d(1, 6, 5)                  # 채널 1→6, 5x5 (padding=0)
+conv2 = nn.Conv2d(6, 16, 5)                 # 채널 6→16, 5x5
+pool = nn.MaxPool2d(2)                      # 2x2 풀링
 
 x = pool(conv1(x)); print(x.shape)          # C1 → S2
 x = pool(conv2(x)); print(x.shape)          # C3 → S4
-print(sum(p.numel() for p in conv1.parameters()))   # C1 파라미터 수
+print(sum(p.numel() for p in conv1.parameters()))   # C1 파라미터 수
 
-# VGG 스타일 한 블록 (nn.Sequential : 넣은 순서대로 실행)
-block = nn.Sequential(
-    nn.Conv2d(64, 96, 3, padding=1), nn.ReLU(),     # 채널 64→96, 크기 유지
-    nn.Conv2d(96, 96, 3, padding=1), nn.ReLU(),     # 채널 유지, 크기 유지
-    nn.MaxPool2d(2),                                # H, W 절반
-)
-y = block(torch.zeros(1, 64, 40, 40))
-print(y.shape)                                      # 블록 출력 모양
-print(sum(p.numel() for p in block.parameters()))   # 블록 파라미터 수
+# VGG 스타일 한 블록
+conv_a = nn.Conv2d(64, 96, 3, padding=1)    # 채널 64→96, 크기 유지
+conv_b = nn.Conv2d(96, 96, 3, padding=1)    # 채널 유지, 크기 유지
+y = torch.zeros(1, 64, 40, 40)              # 블록 입력
+y = F.relu(conv_a(y))                       # Conv → ReLU
+y = F.relu(conv_b(y))                       # Conv → ReLU
+y = pool(y)                                 # H, W 절반
+print(y.shape)                              # 블록 출력 모양
+print([sum(p.numel() for p in m.parameters()) for m in (conv_a, conv_b)])   # 층별 파라미터 수
 
-# VGG의 첫 FC층
-fc = nn.Linear(512 * 7 * 7, 4096)           # Flatten 뒤 25088 → 4096
+# VGG의 첫 FC층
+fc = nn.Linear(512 * 7 * 7, 4096)           # Flatten 뒤 25088 → 4096
 print(sum(p.numel() for p in fc.parameters()))
 ```
 
@@ -147,7 +144,7 @@ torch.Size([1, 6, 14, 14])
 torch.Size([1, 16, 5, 5])
 156
 torch.Size([1, 96, 20, 20])
-138432
+[55392, 83040]
 102764544
 ```
 
