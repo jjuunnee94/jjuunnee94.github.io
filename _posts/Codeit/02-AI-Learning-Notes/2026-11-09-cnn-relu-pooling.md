@@ -26,7 +26,7 @@ math : true
 - 학습하는 가중치가 **없다.** 합이나 평균이 아니라 창 안에 **실제로 있는** 최댓값이다.
 - 값이 같은 창은 안의 배치가 달라져도 최댓값은 그대로이다.
 
-![4×4 입력에서 2×2 창마다 최댓값을 남기는 Max Pooling](/assets/02-AI-Learning-Notes-paper/11-09-cnn_maxpool.png)
+![4×4 입력에서 2×2 창마다 최댓값을 남기는 Max Pooling](/assets/02-AI-Learning-Notes/11-09-cnn_maxpool.png)
 
 📍 [예시]
 
@@ -49,7 +49,7 @@ $$
 - **수용영역(Receptive Field)** 은 출력 한 칸이 원본 입력에서 **영향을 받을 수 있는 범위**이다.
 - 2층 출력 한 칸은 1층 출력 3×3(9칸)을 읽는다. 이 9칸은 이웃이라 서로 많이 **겹치므로**, 원본에서는 9×9가 아니라 합쳐서 5×5가 된다.
 
-![3×3 합성곱을 쌓으면 출력 한 칸이 읽는 입력 범위가 3, 5, 7로 넓어지는 한 줄 그림](/assets/02-AI-Learning-Notes-paper/11-09-cnn_receptive.png)
+![3×3 합성곱을 쌓으면 출력 한 칸이 읽는 입력 범위가 3, 5, 7로 넓어지는 한 줄 그림](/assets/02-AI-Learning-Notes/11-09-cnn_receptive.png)
 
 - 3×3 합성곱(stride 1)을 $n$층 쌓으면 한 층마다 각 축으로 $k-1=2$씩 넓어진다.
 
