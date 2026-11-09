@@ -6,7 +6,7 @@ tags: [codeit, cnn, relu, maxpool, pooling, receptive-field, 코드잇스프린�
 math : true
 ---
 
-### 1. ReLU : 음수는 0, 양수는 그대로
+### 1. ReLU : 음수는 0, 양수는 그대로 
 
 - $\text{ReLU}(x) = \max(0,\ x)$
 - **각 칸마다 따로** 적용하고, 채널 수와 공간 크기는 바뀌지 않는다.
