@@ -1,5 +1,5 @@
 ---
-title: "[하루 10개 개발 영단어장] Day_07"
+title: "[하루 10개 개발 영단어장] Day_08"
 date: 2026-11-13 09:00:00 +0900
 categories: [Codeit, 03-Vocabulary]
 tags: [python, advanced]
