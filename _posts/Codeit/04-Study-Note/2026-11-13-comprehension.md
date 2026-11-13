@@ -1,5 +1,5 @@
 ---
-title: "파이썬 컴프리헨션(Comprehension) 4가지 종류 정리"
+title: "Comprehension 4가지 종류 정리"
 date: 2026-11-13 13:10:00 +0900
 categories: [Codeit, '04-Study-Note']
 tags: [codeit, 파이썬, python, 컴프리헨션, comprehension, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
