@@ -21,6 +21,205 @@ flowchart LR
     E --> G["2019~2022 EfficientNet · ConvNeXt<br/>(복합 스케일링 · 현대 CNN)"]
 ```
 
+<div id="cnn-explorer-widget" style="border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; padding: 20px; margin: 24px 0; background: rgba(128,128,128,0.04); font-family: inherit;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px;">
+    <div>
+      <strong style="font-size: 1.05rem;">📊 CNN 아키텍처 진화 인터랙티브 탐색기</strong>
+      <div style="font-size: 0.82rem; opacity: 0.75;">원(버블) 또는 아래 모델 버튼을 클릭해 구조와 성능을 비교해 보세요.</div>
+    </div>
+    <div id="cnn-filter-btns" style="display: flex; gap: 6px; flex-wrap: wrap;">
+      <button type="button" data-filter="all" style="padding: 5px 10px; border-radius: 6px; border: 1px solid #3b82f6; background: #3b82f6; color: #fff; font-size: 0.8rem; cursor: pointer;">전체 (7)</button>
+      <button type="button" data-filter="accuracy" style="padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,0.4); background: transparent; color: inherit; font-size: 0.8rem; cursor: pointer;">정확도·심화</button>
+      <button type="button" data-filter="efficiency" style="padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,0.4); background: transparent; color: inherit; font-size: 0.8rem; cursor: pointer;">효율·경량화</button>
+    </div>
+  </div>
+
+  <div style="width: 100%; overflow-x: auto;">
+    <svg id="cnn-bubble-svg" viewBox="0 0 680 270" style="width: 100%; min-width: 520px; height: auto; display: block;">
+      <line x1="65" y1="20" x2="65" y2="225" stroke="currentColor" stroke-opacity="0.25" />
+      <line x1="65" y1="225" x2="650" y2="225" stroke="currentColor" stroke-opacity="0.25" />
+
+      <text x="55" y="25" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">18%</text>
+      <line x1="65" y1="22" x2="650" y2="22" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="3,3" />
+
+      <text x="55" y="92" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">12%</text>
+      <line x1="65" y1="89" x2="650" y2="89" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="3,3" />
+
+      <text x="55" y="160" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">6%</text>
+      <line x1="65" y1="157" x2="650" y2="157" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="3,3" />
+
+      <line x1="65" y1="168" x2="650" y2="168" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="5,4" />
+      <text x="645" y="163" font-size="10.5" text-anchor="end" fill="#ef4444" font-weight="bold">인간 인지 한계 (~5.0%)</text>
+
+      <text x="55" y="228" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">0%</text>
+      <text x="18" y="125" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75" transform="rotate(-90, 18, 125)">ImageNet Top-5 에러율 (낮을수록 우수)</text>
+
+      <text x="105" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">1998</text>
+      <text x="200" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2012</text>
+      <text x="315" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2014</text>
+      <text x="425" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2015</text>
+      <text x="525" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2017</text>
+      <text x="615" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2019</text>
+
+      <g id="cnn-bubbles-layer"></g>
+    </svg>
+  </div>
+  <div style="font-size: 0.78rem; opacity: 0.65; text-align: right; margin-bottom: 12px;">* 원(버블)의 크기는 모델의 파라미터 수(백만 개)에 비례합니다. (LeNet-5는 MNIST 기준)</div>
+
+  <div id="cnn-model-pills" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;"></div>
+
+  <div id="cnn-detail-card" style="border-radius: 8px; padding: 14px 16px; background: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px;">
+      <span id="cnn-detail-title" style="font-size: 1.05rem; font-weight: bold;"></span>
+      <span id="cnn-detail-meta" style="font-size: 0.82rem; opacity: 0.85;"></span>
+    </div>
+    <div style="font-size: 0.88rem; margin-bottom: 6px;"><strong>💡 핵심 돌파구:</strong> <span id="cnn-detail-innovation"></span></div>
+    <div style="font-size: 0.88rem; margin-bottom: 10px;"><strong>🎯 해결한 문제:</strong> <span id="cnn-detail-problem"></span></div>
+    <div style="font-size: 0.82rem; padding: 8px 10px; border-radius: 6px; background: rgba(128,128,128,0.12); font-family: monospace; overflow-x: auto;">
+      <strong>[블록 구조]</strong> <span id="cnn-detail-flow"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const models = [
+    {
+      id: "lenet", name: "LeNet-5", year: 1998, x: 105, error: 17.0, errorText: "MNIST 0.8% (원형)",
+      params: "0.06M (6만 개)", r: 8, layers: "5층", category: "accuracy", color: "#64748b",
+      innovation: "Conv → Subsampling(Pool) → FC로 이어지는 현대 CNN 표준 파이프라인 정립",
+      problem: "수작업 특징 추출(Hand-crafted Feature)의 한계 극복",
+      flow: "Input(32×32) → Conv(5×5) → AvgPool → Conv(5×5) → AvgPool → FC → Output"
+    },
+    {
+      id: "alexnet", name: "AlexNet", year: 2012, x: 200, error: 15.3, errorText: "15.3%",
+      params: "60.0M (6,000만 개)", r: 22, layers: "8층", category: "accuracy", color: "#f59e0b",
+      innovation: "ReLU 활성 함수, Dropout 정규화, 멀티 GPU 병렬 학습 최초 도입",
+      problem: "기울기 소실(Vanishing Gradient) 완화 및 대규모 ImageNet 학습 실현",
+      flow: "Input(224×224) → Conv(11×11) → MaxPool → ReLU → Dropout → FC(4096) → Output"
+    },
+    {
+      id: "vgg16", name: "VGG-16", year: 2014, x: 300, error: 7.3, errorText: "7.3%",
+      params: "138.0M (1억 3,800만 개)", r: 32, layers: "16층", category: "accuracy", color: "#ec4899",
+      innovation: "큰 필터 대신 3×3 작은 필터만 16~19층으로 깊게 쌓아 표현력 극대화",
+      problem: "큰 필터의 파라미터 비효율 개선 및 비선형성(ReLU) 2배 증가",
+      flow: "Input → [Conv(3×3)×2 → MaxPool] → [Conv(3×3)×3 → MaxPool] → FC(4096) → Output"
+    },
+    {
+      id: "googlenet", name: "GoogLeNet", year: 2014, x: 335, error: 6.7, errorText: "6.7%",
+      params: "6.8M (680만 개)", r: 12, layers: "22층", category: "efficiency", color: "#10b981",
+      innovation: "Inception 병렬 모듈, 1×1 Conv 차원 압축 병목, GAP(Global Average Pooling)",
+      problem: "망이 깊어질 때의 연산량 폭증 억제 (VGG 대비 파라미터 1/20로 축소)",
+      flow: "Input → Stem → Inception(1×1 | 1×1→3×3 | 1×1→5×5 | Pool→1×1) → GAP → Output"
+    },
+    {
+      id: "resnet50", name: "ResNet-50", year: 2015, x: 425, error: 3.57, errorText: "3.57% (인간 추월)",
+      params: "25.6M (2,560만 개)", r: 17, layers: "50층 (최대 152층)", category: "accuracy", color: "#3b82f6",
+      innovation: "Skip Connection (잔차 학습 H(x) = F(x) + x)으로 기울기 고속도로 구축",
+      problem: "20층 이상 깊게 쌓을 때 오히려 성능이 떨어지는 Degradation 문제 해결",
+      flow: "Input(x) → [1×1 Conv → 3×3 Conv → 1×1 Conv] + Identity(x) → ReLU → Output"
+    },
+    {
+      id: "mobilenet", name: "MobileNet-v1", year: 2017, x: 525, error: 10.5, errorText: "10.5% (경량 모델)",
+      params: "4.2M (420만 개)", r: 10, layers: "28층", category: "efficiency", color: "#14b8a6",
+      innovation: "Depthwise Separable Convolution (공간 연산과 채널 연산의 분리)",
+      problem: "스마트폰·엣지 디바이스에서 실시간으로 동작하는 초경량 CNN 구현",
+      flow: "Input → Depthwise Conv(3×3, 채널별 공간 연산) → Pointwise Conv(1×1, 채널 결합) → Output"
+    },
+    {
+      id: "efficientnet", name: "EfficientNet-B0", year: 2019, x: 615, error: 2.9, errorText: "2.9%",
+      params: "5.3M (530만 개)", r: 11, layers: "18층", category: "efficiency", color: "#8b5cf6",
+      innovation: "Compound Scaling (깊이·너비·입력 해상도 3요소의 균형 확장) + MBConv",
+      problem: "단일 차원(깊이만) 확장 시 발생하는 연산 대비 정확도 효율 저하 극복",
+      flow: "Input → MBConv(역병목 + SE Attention) × 복합 스케일링(d, w, r) → Output"
+    }
+  ];
+
+  let currentFilter = "all";
+  let selectedId = "resnet50";
+
+  const svgLayer = document.getElementById("cnn-bubbles-layer");
+  const pillsContainer = document.getElementById("cnn-model-pills");
+  const filterBtns = document.querySelectorAll("#cnn-filter-btns button");
+
+  function getY(errorVal) {
+    return 225 - (errorVal / 18) * 203;
+  }
+
+  function render() {
+    const filtered = currentFilter === "all" ? models : models.filter(m => m.category === currentFilter);
+    if (!filtered.some(m => m.id === selectedId)) {
+      selectedId = filtered[0].id;
+    }
+
+    svgLayer.innerHTML = "";
+    filtered.forEach(m => {
+      const cy = getY(m.error);
+      const isSelected = m.id === selectedId;
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.style.cursor = "pointer";
+      g.addEventListener("click", () => { selectedId = m.id; render(); });
+
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", m.x);
+      circle.setAttribute("cy", cy);
+      circle.setAttribute("r", m.r);
+      circle.setAttribute("fill", m.color);
+      circle.setAttribute("fill-opacity", isSelected ? "0.9" : "0.55");
+      circle.setAttribute("stroke", isSelected ? "#ffffff" : m.color);
+      circle.setAttribute("stroke-width", isSelected ? "2.5" : "1.5");
+
+      const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      label.setAttribute("x", m.x);
+      label.setAttribute("y", cy - m.r - 6);
+      label.setAttribute("font-size", isSelected ? "11.5" : "10.5");
+      label.setAttribute("font-weight", isSelected ? "bold" : "normal");
+      label.setAttribute("text-anchor", "middle");
+      label.setAttribute("fill", "currentColor");
+      label.textContent = m.name;
+
+      g.appendChild(circle);
+      g.appendChild(label);
+      svgLayer.appendChild(g);
+    });
+
+    pillsContainer.innerHTML = "";
+    filtered.forEach(m => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      const active = m.id === selectedId;
+      btn.textContent = `${m.name} (${m.year})`;
+      btn.style.cssText = `padding: 5px 11px; border-radius: 999px; font-size: 0.8rem; cursor: pointer; border: 1px solid ${m.color}; background: ${active ? m.color : "transparent"}; color: ${active ? "#fff" : "inherit"}; font-weight: ${active ? "bold" : "normal"};`;
+      btn.addEventListener("click", () => { selectedId = m.id; render(); });
+      pillsContainer.appendChild(btn);
+    });
+
+    const activeModel = models.find(m => m.id === selectedId);
+    document.getElementById("cnn-detail-card").style.borderLeftColor = activeModel.color;
+    document.getElementById("cnn-detail-title").textContent = `${activeModel.name} (${activeModel.year}년)`;
+    document.getElementById("cnn-detail-meta").textContent = `층 수: ${activeModel.layers} | 파라미터: ${activeModel.params} | Top-5 에러율: ${activeModel.errorText}`;
+    document.getElementById("cnn-detail-innovation").textContent = activeModel.innovation;
+    document.getElementById("cnn-detail-problem").textContent = activeModel.problem;
+    document.getElementById("cnn-detail-flow").textContent = activeModel.flow;
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentFilter = btn.getAttribute("data-filter");
+      filterBtns.forEach(b => {
+        const isCurrent = b === btn;
+        b.style.background = isCurrent ? "#3b82f6" : "transparent";
+        b.style.color = isCurrent ? "#fff" : "inherit";
+        b.style.borderColor = isCurrent ? "#3b82f6" : "rgba(128,128,128,0.4)";
+      });
+      render();
+    });
+  });
+
+  render();
+})();
+</script>
+
 🔍[비교] 시대별 대표 CNN 아키텍처 요약
 
 | 모델명 | 연도 | 층 수 | 핵심 아이디어 (대표 키워드) | 파라미터 수 (약) | 의의 |
@@ -104,4 +303,20 @@ flowchart TB
 ### 4. 2017년 ~ 2022년: 경량화와 현대 CNN의 완성
 
 - **DenseNet (2017)**: 이전 모든 층의 특징 맵(Feature Map)을 다음 층에 덧셈이 아닌 **채널 방향 결합(`Concat`)**으로 연결해 특징 재사용성을 극대화했다.
-- **MobileNet (2017)**: 일반 합성
+- **MobileNet (2017)**: 일반 합성곱을 공간 연산(Depthwise)과 채널 연산(Pointwise, 1×1)으로 쪼갠 **Depthwise Separable Convolution**을 도입해 스마트폰·엣지 디바이스에서도 실시간으로 동작하는 초경량 CNN 시대를 열었다.
+- **EfficientNet (2019)**: 네트워크의 **깊이(Depth), 너비(Width), 입력 해상도(Resolution)** 세 가지를 균형 있게 동시에 키우는 **복합 스케일링(Compound Scaling)**으로 연산량 대비 최고 효율을 달성했다.
+- **ConvNeXt (2022)**: Vision Transformer(ViT)의 설계 철학(7×7 큰 커널, LayerNorm, 역병목 구조 등)을 순수 CNN 구조에 역수입하여 최신 Transformer 계열과 대등한 성능을 입증했다.
+
+### 5. 핵심 기술 흐름 요약
+
+- **필터 크기의 축소 (`VGGNet`)**: 큰 필터 1개 대신 **작은 3×3 필터 여러 개**를 쌓아 파라미터는 줄이고 비선형성은 높인다.
+- **차원 축소와 연산 최적화 (`GoogLeNet`)**: **`1×1 합성곱`**으로 채널 수를 압축한 뒤 무거운 연산을 수행하고, 마지막 FC 층을 **GAP**로 대체한다.
+- **기울기 소실 해결과 초심층화 (`ResNet`)**: **`Skip Connection` ($F(x) + x$)**으로 100층 이상의 깊은 네트워크 학습을 가능하게 한다.
+- **모바일 경량화 (`MobileNet`)**: 연산을 깊이별(Depthwise)과 점별(Pointwise)로 분리해 연산량을 대폭 줄인다.
+
+&nbsp;
+
+&nbsp;
+
+\- 이 글은 Codeit 강의를 수강하며 학습한 내용을 바탕으로 개인적으로 공부한 것입니다. ([Codeit 공식 사이트](https://codeit.kr/)) -
+{: .small .text-muted .text-center }
