@@ -15,11 +15,13 @@ math : true
 - `reshape`는 축을 바꾸는 것이 아니라 값을 한 줄로 펼친 뒤 다시 자르는 것이다. shape은 맞아 보여도 색이 섞이고, 오류도 눈에 띄지 않는다.
 
 - 정답
+
 ```python
 return t.permute(2, 0, 1)
 ```
 
 - 내가 쓴 답
+
 ```python
 t = t.permute(2, 0, 1)
 return t
@@ -145,6 +147,7 @@ return (new_x1, y1, new_x2, y2)
    v2.Normalize(MEAN, STD),
 ])
 ```
+
 - 내가 쓴 답
 
 ```python
