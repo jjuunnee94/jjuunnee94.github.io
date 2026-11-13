@@ -14,6 +14,7 @@ math : true
 📍[예시] 리스트의 모든 숫자를 **문자열(`str`)로 변환**하기
 
 - 일반 `for`문
+
 ```python
 nums = [1, 2, 3, 4]
 str_nums = []
@@ -24,6 +25,7 @@ for x in nums:
 ```
 
 - `map()` 함수
+
 ```python
 nums = [1, 2, 3, 4]
 str_nums = list(map(str, nums))
@@ -42,6 +44,7 @@ doubled = list(map(lambda x: x * 2, nums))
 📍[예시] **0보다 큰 양수만** 골라내기
 
 - 일반 `for`문
+
 ```python
 nums = [-2, -1, 0, 1, 2, 3]
 positives = []
@@ -53,6 +56,7 @@ for x in nums:
 ```
 
 - `filter()` 함수
+
 ```python
 nums = [-2, -1, 0, 1, 2, 3]
 positives = list(filter(lambda x: x > 0, nums))
@@ -67,6 +71,7 @@ positives = list(filter(lambda x: x > 0, nums))
 📍[예시] 키(Key) 리스트와 값(Value) 리스트를 **딕셔너리로 합치기**
 
 - 일반 `for`문
+
 ```python
 keys = ["name", "age", "job"]
 values = ["맥북", 5, "computer"]
@@ -78,6 +83,7 @@ for i in range(len(keys)):
 ```
 
 - `zip()` 함수
+
 ```python
 keys = ["name", "age", "job"]
 values = ["맥북", 5, "computer"]
@@ -94,6 +100,7 @@ profile = dict(zip(keys, values))
 📍[예시] 과일 리스트에 **1번부터 번호를 매겨 딕셔너리**로 만들기
 
 - 일반 `for`문
+
 ```python
 fruits = ["사과", "바나나", "포도"]
 fruit_dict = {}
@@ -106,6 +113,7 @@ for name in fruits:
 ```
 
 - `enumerate()` 함수
+
 ```python
 fruits = ["사과", "바나나", "포도"]
 fruit_dict = dict(enumerate(fruits, start=1))
@@ -120,6 +128,7 @@ fruit_dict = dict(enumerate(fruits, start=1))
 📍[예시] 시험 점수 리스트에서 **과락(60점 미만) 여부 및 전원 합격 여부** 확인하기
 
 - 일반 `for`문
+
 ```python
 scores = [85, 92, 58, 77]
 has_fail = False
@@ -132,6 +141,7 @@ for s in scores:
 ```
 
 - `any()` / `all()` 함수
+
 ```python
 scores = [85, 92, 58, 77]
 
