@@ -1,8 +1,8 @@
 ---
-title: "Built-in Function - map, filter, zip, enumerate"
+title: "Built-in Function - map, filter, zip, enumerate, any, all"
 date: 2026-11-13 13:20:00 +0900
 categories: [Codeit, '04-Study-Note']
-tags: [codeit, 파이썬, python, 내장함수, map, filter, zip, enumerate, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
+tags: [codeit, 파이썬, python, 내장함수, built-in-function, map, filter, zip, enumerate, any, all, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 math : true
 ---
 ### 1. `map(함수, 반복가능객체)` — 일괄 변환
