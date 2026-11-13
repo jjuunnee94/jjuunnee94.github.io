@@ -28,6 +28,7 @@ math : true
 📍[예시] 1부터 5까지 숫자 중 **짝수만 골라 제곱**하기
 
 - 일반 `for`문
+
 ```python
 nums = [1, 2, 3, 4, 5]
 result = []
@@ -39,6 +40,7 @@ for x in nums:
 ```
 
 - 리스트 컴프리헨션
+
 ```python
 nums = [1, 2, 3, 4, 5]
 result = [x ** 2 for x in nums if x % 2 == 0]
@@ -52,6 +54,7 @@ result = [x ** 2 for x in nums if x % 2 == 0]
 📍[예시] 점수가 **80점 이상인 과목만 딕셔너리**로 추리기
 
 - 일반 `for`문
+
 ```python
 scores = {"국어": 90, "영어": 75, "수학": 85}
 passed = {}
@@ -63,6 +66,7 @@ for k, v in scores.items():
 ```
 
 - 딕셔너리 컴프리헨션
+
 ```python
 scores = {"국어": 90, "영어": 75, "수학": 85}
 passed = {k: v for k, v in scores.items() if v >= 80}
@@ -76,6 +80,7 @@ passed = {k: v for k, v in scores.items() if v >= 80}
 📍[예시] 단어 목록에서 **첫 글자만 중복 없이 추출**하기
 
 - 일반 `for`문
+
 ```python
 words = ["apple", "banana", "avocado", "cherry"]
 first_letters = set()
@@ -86,6 +91,7 @@ for w in words:
 ```
 
 - 세트 컴프리헨션
+
 ```python
 words = ["apple", "banana", "avocado", "cherry"]
 first_letters = {w[0] for w in words}
@@ -101,6 +107,7 @@ first_letters = {w[0] for w in words}
 📍[예시] 1부터 100만까지 **제곱의 합** 구하기
 
 - 일반 `for`문
+
 ```python
 total = 0
 
@@ -109,6 +116,7 @@ for x in range(1, 1000001):
 ```
 
 - 제너레이터 표현식
+
 ```python
 # 리스트 [...]를 만들지 않고 하나씩 꺼내 바로 더함
 total = sum(x ** 2 for x in range(1, 1000001))
