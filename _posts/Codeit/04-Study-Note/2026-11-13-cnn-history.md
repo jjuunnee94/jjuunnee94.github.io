@@ -21,7 +21,7 @@ flowchart LR
     E --> G["2019~2022 EfficientNet · ConvNeXt<br/>(복합 스케일링 · 현대 CNN)"]
 ```
 
-<div id="cnn-explorer-widget" style="border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; padding: 20px; margin: 24px 0; background: rgba(128,128,128,0.04); font-family: inherit;">
+<div id="cnn-explorer-widget" markdown="0" style="border: 1px solid rgba(128,128,128,0.25); border-radius: 12px; padding: 20px; margin: 24px 0; background: rgba(128,128,128,0.04); font-family: inherit;">
   <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px;">
     <div>
       <strong style="font-size: 1.05rem;">📊 CNN 아키텍처 진화 인터랙티브 탐색기</strong>
@@ -33,41 +33,31 @@ flowchart LR
       <button type="button" data-filter="efficiency" style="padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(128,128,128,0.4); background: transparent; color: inherit; font-size: 0.8rem; cursor: pointer;">효율·경량화</button>
     </div>
   </div>
-
   <div style="width: 100%; overflow-x: auto;">
     <svg id="cnn-bubble-svg" viewBox="0 0 680 270" style="width: 100%; min-width: 520px; height: auto; display: block;">
       <line x1="65" y1="20" x2="65" y2="225" stroke="currentColor" stroke-opacity="0.25" />
       <line x1="65" y1="225" x2="650" y2="225" stroke="currentColor" stroke-opacity="0.25" />
-
       <text x="55" y="25" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">18%</text>
       <line x1="65" y1="22" x2="650" y2="22" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="3,3" />
-
       <text x="55" y="92" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">12%</text>
       <line x1="65" y1="89" x2="650" y2="89" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="3,3" />
-
       <text x="55" y="160" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">6%</text>
       <line x1="65" y1="157" x2="650" y2="157" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="3,3" />
-
       <line x1="65" y1="168" x2="650" y2="168" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="5,4" />
       <text x="645" y="163" font-size="10.5" text-anchor="end" fill="#ef4444" font-weight="bold">인간 인지 한계 (~5.0%)</text>
-
       <text x="55" y="228" font-size="11" text-anchor="end" fill="currentColor" opacity="0.7">0%</text>
       <text x="18" y="125" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75" transform="rotate(-90, 18, 125)">ImageNet Top-5 에러율 (낮을수록 우수)</text>
-
       <text x="105" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">1998</text>
       <text x="200" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2012</text>
       <text x="315" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2014</text>
       <text x="425" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2015</text>
       <text x="525" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2017</text>
       <text x="615" y="245" font-size="11" text-anchor="middle" fill="currentColor" opacity="0.75">2019</text>
-
       <g id="cnn-bubbles-layer"></g>
     </svg>
   </div>
   <div style="font-size: 0.78rem; opacity: 0.65; text-align: right; margin-bottom: 12px;">* 원(버블)의 크기는 모델의 파라미터 수(백만 개)에 비례합니다. (LeNet-5는 MNIST 기준)</div>
-
   <div id="cnn-model-pills" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;"></div>
-
   <div id="cnn-detail-card" style="border-radius: 8px; padding: 14px 16px; background: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6;">
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px;">
       <span id="cnn-detail-title" style="font-size: 1.05rem; font-weight: bold;"></span>
@@ -82,6 +72,7 @@ flowchart LR
 </div>
 
 <script>
+//<![CDATA[
 (function() {
   const models = [
     {
@@ -134,33 +125,27 @@ flowchart LR
       flow: "Input → MBConv(역병목 + SE Attention) × 복합 스케일링(d, w, r) → Output"
     }
   ];
-
   let currentFilter = "all";
   let selectedId = "resnet50";
-
   const svgLayer = document.getElementById("cnn-bubbles-layer");
   const pillsContainer = document.getElementById("cnn-model-pills");
   const filterBtns = document.querySelectorAll("#cnn-filter-btns button");
-
   function getY(errorVal) {
     return 225 - (errorVal / 18) * 203;
   }
-
   function render() {
     const filtered = currentFilter === "all" ? models : models.filter(m => m.category === currentFilter);
     if (!filtered.some(m => m.id === selectedId)) {
       selectedId = filtered[0].id;
     }
-
     svgLayer.innerHTML = "";
     filtered.forEach(m => {
       const cy = getY(m.error);
       const isSelected = m.id === selectedId;
-      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      const g = document.createElementNS("[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)", "g");
       g.style.cursor = "pointer";
       g.addEventListener("click", () => { selectedId = m.id; render(); });
-
-      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      const circle = document.createElementNS("[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)", "circle");
       circle.setAttribute("cx", m.x);
       circle.setAttribute("cy", cy);
       circle.setAttribute("r", m.r);
@@ -168,8 +153,7 @@ flowchart LR
       circle.setAttribute("fill-opacity", isSelected ? "0.9" : "0.55");
       circle.setAttribute("stroke", isSelected ? "#ffffff" : m.color);
       circle.setAttribute("stroke-width", isSelected ? "2.5" : "1.5");
-
-      const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      const label = document.createElementNS("[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)", "text");
       label.setAttribute("x", m.x);
       label.setAttribute("y", cy - m.r - 6);
       label.setAttribute("font-size", isSelected ? "11.5" : "10.5");
@@ -177,12 +161,10 @@ flowchart LR
       label.setAttribute("text-anchor", "middle");
       label.setAttribute("fill", "currentColor");
       label.textContent = m.name;
-
       g.appendChild(circle);
       g.appendChild(label);
       svgLayer.appendChild(g);
     });
-
     pillsContainer.innerHTML = "";
     filtered.forEach(m => {
       const btn = document.createElement("button");
@@ -193,7 +175,6 @@ flowchart LR
       btn.addEventListener("click", () => { selectedId = m.id; render(); });
       pillsContainer.appendChild(btn);
     });
-
     const activeModel = models.find(m => m.id === selectedId);
     document.getElementById("cnn-detail-card").style.borderLeftColor = activeModel.color;
     document.getElementById("cnn-detail-title").textContent = `${activeModel.name} (${activeModel.year}년)`;
@@ -202,7 +183,6 @@ flowchart LR
     document.getElementById("cnn-detail-problem").textContent = activeModel.problem;
     document.getElementById("cnn-detail-flow").textContent = activeModel.flow;
   }
-
   filterBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       currentFilter = btn.getAttribute("data-filter");
@@ -215,9 +195,9 @@ flowchart LR
       render();
     });
   });
-
   render();
 })();
+//]]>
 </script>
 
 🔍[비교] 시대별 대표 CNN 아키텍처 요약
