@@ -1,5 +1,5 @@
 ---
-title: "CNN - 10. evaluation"
+title: "CNN - 10. Evaluation"
 date: 2026-11-14 09:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
 tags: [codeit, cnn, 평가, argmax, accuracy, eval, no_grad, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
