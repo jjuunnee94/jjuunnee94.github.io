@@ -6,7 +6,7 @@ tags: [codeit, rnn, nn-rnn, shape, 은닉상태, 코드잇스프린트, AI, AI�
 math : true
 ---
 
-## 1. B · F · H와 RNNCell의 shape
+## 1. B · F · H와 RNNCell의 shape 
 
 - $B$: 한 번에 계산하는 예제 수
 - $F$: 한 시점의 입력 칸 수
