@@ -2,7 +2,7 @@
 title: "RNN - 01. 순서 데이터와 RNNCell"
 date: 2026-11-15 09:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
-tags: [codeit, rnn, rnncell, 은닉상태, tanh, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
+tags: [codeit, rnn, rnncell, tanh, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 math : true
 ---
 
