@@ -43,6 +43,10 @@ math : true
   $$\delta_t = (\hat{y}_t - y_t) \odot (1 - h_t^2), \qquad \delta_{t-1} = (W_{hh}^T \delta_t) \odot (1 - h_{t-1}^2)$$
   - **쓰이는 이유**: 최종 손실 오차가 과거 시점의 은닉 상태에 얼마나 민감하게 영향을 받는지 연쇄 법칙으로 거슬러 올라가며 계산하기 위해 사용한다. (이 과정에서 $W_{hh}$와 $(1 - h^2)$가 계속 곱해지며 기울기 소실이 발생한다.)
 
+- **각 시점별 가중치 기여도 (Step-wise Gradient Contribution)**
+  $$\frac{\partial L}{\partial W_{hh}}\bigg|_t = \delta_t \cdot h_{t-1}^T$$
+  - **쓰이는 이유**: 해당 시점($t$)에서 순환 가중치($W_{hh}$)가 손실 오차에 얼마나 책임을 지는지(기여분)를 먼저 계산한 뒤, 아래 공식처럼 모든 시점을 합산하기 위해 사용한다.
+
 - **순환 가중치 최종 기울기 합산 (Total Gradient)**
   $$\frac{\partial L}{\partial W_{hh}} = \sum_{t=1}^{T} \delta_t \cdot h_{t-1}^T$$
   - **쓰이는 이유**: 모든 시점에서 동일한 가중치 $W_{hh}$를 공유하므로, 각 시점에서 발생한 가중치 기여도($\delta_t \cdot h_{t-1}^T$)를 모두 더해 한 번에 업데이트하기 위해 사용한다.
@@ -85,6 +89,10 @@ math : true
   $$o = \sigma(a_o) = \sigma(W_{xo}x_t + W_{ho}h_{t-1} + b_o), \qquad h_t = o \odot \tanh(c_t)$$
   - **쓰이는 이유**: 장기 기억 전체($c_t$)를 그대로 노출하지 않고 $\tanh$로 값을 다듬은 뒤, 현재 시점의 예측에 당장 필요한 부분만 출력 비율($o$)만큼 걸러내 단기 기억($h_t$)으로 내보내기 위해 사용한다.
 
+- **이전 셀 상태 변화량 전달 — LSTM 역전파 핵심 (Cell State Gradient)**
+  $$\frac{\partial L}{\partial c_{t-1}} = \frac{\partial L}{\partial c_t} \odot f$$
+  - **쓰이는 이유**: 기본 RNN처럼 가중치 행렬($W_{hh}$)이나 $\tanh$ 미분을 곱하지 않고 **오직 망각 게이트($f$)만 원소별로 곱해서** 과거로 전달하기 때문에, $f \approx 1$이면 변화량(기울기)이 소실되지 않고 맨 앞 시점까지 온전히 전달된다.
+
 ---
 
 ### 3. LSTM 극단 상황 검증 (기억 초기화 원리)
@@ -98,6 +106,13 @@ math : true
 - **2단계: 장기 기억이 비어 있을 때 출력 검증 ($c_t=0$)**
   $$c_t = 0 \implies h_t = o \odot \tanh(0) = o \times 0 = 0$$
   - $\tanh(0) = 0$이므로 장기 기억 창고($c_t$)가 비어 있으면 출력 게이트($o$)의 값과 상관없이 은닉 상태($h_t$)도 자동으로 `0`으로 리셋된다. 이를 통해 기억이 없을 때 가짜 신호가 밖으로 새어 나가는 것을 방지한다.
+---
+
+### 4. 가중치 실제 업데이트 공식 (공통)
+
+- **경사하강법 가중치 수정 (Gradient Descent Update)**
+  $$W_{\text{new}} = W_{\text{old}} - \eta \cdot \frac{\partial L}{\partial W}$$
+  - **쓰이는 이유**: 기본 RNN과 LSTM에서 역전파로 구한 최종 변화량(기울기 $\frac{\partial L}{\partial W}$)에 학습률($\eta$)을 곱해 빼줌으로써, 손실($L$)이 줄어드는 방향으로 실제 가중치를 업데이트하기 위해 사용한다.
 
 &nbsp;
 
