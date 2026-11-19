@@ -1,6 +1,6 @@
 ---
 title: "AutoEncoder 기호 및 공식 정리 1"
-date: 2026-11-24 17:30:00 +0900
+date: 2026-11-19 10:30:00 +0900
 categories: [Codeit, '04-Study-Note']
 tags: [codeit, autoencoder, 오토인코더, 인코더, 디코더, MSE, 코드잇스프린트, AI, AI부트캠프, AI엔지니어]
 math : true
