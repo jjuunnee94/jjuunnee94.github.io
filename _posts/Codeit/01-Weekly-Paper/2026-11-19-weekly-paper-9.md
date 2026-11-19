@@ -1,6 +1,6 @@
 ---
 title: "Weekly paper #8"
-date: 2026-11-13 17:00:00 +0900
+date: 2026-11-19 17:00:00 +0900
 categories: [Codeit, '01-Weekly-Paper']
 tags: [codeit, WeeklyPaper]
 math: true
