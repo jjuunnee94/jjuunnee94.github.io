@@ -2,7 +2,7 @@
 title: "RNN 기호 및 공식 정리 3"
 date: 2026-11-18 17:30:00 +0900
 categories: [Codeit, '04-Study-Note']
-tags: [codeit, 딥러닝, deeplearning, RNN, GRU, LSTM, 양방향RNN, 파라미터수, 코드잇스프린트, AI, AI부트캠프, AI엔지니어]
+tags: [codeit, 딥러닝, deeplearning, RNN, GRU, LSTM, 양방향RNN, 파라미터수, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 math : true
 ---
 
