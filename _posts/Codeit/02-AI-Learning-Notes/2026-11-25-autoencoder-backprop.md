@@ -2,7 +2,7 @@
 title: "AutoEncoder - 02. 역전파와 파라미터 갱신"
 date: 2026-11-25 09:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
-tags: [codeit, autoencoder, backpropagation, gradient-descent, learning-rate, codeit-sprint, AI, AI-bootcamp, AI-engineer, AI-engineer-career]
+tags: [codeit, autoencoder, backpropagation, gradient-descent, learning-rate, codeit-sprint, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 math : true
 ---
 
