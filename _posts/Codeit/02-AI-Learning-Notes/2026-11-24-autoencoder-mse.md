@@ -2,7 +2,7 @@
 title: "AutoEncoder - 01. 복원 구조와 작은 오토인코더"
 date: 2026-11-24 09:00:00 +0900
 categories: [Codeit, '02-AI-Learning-Notes']
-tags: [codeit, autoencoder, reconstruction, mse, codeit-sprint, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
+tags: [codeit, autoencoder, reconstruction, mse, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 math : true
 ---
 
