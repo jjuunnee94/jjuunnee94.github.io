@@ -3,7 +3,7 @@ title: "AutoEncoder 기호 및 공식 정리 1"
 date: 2026-11-19 17:30:00 +0900
 categories: [Codeit, '04-Study-Note']
 tags: tags: [codeit, autoencoder, symbol, formula, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
-math : true
+math: true
 ---
 
 #### 🔍[기호] AutoEncoder 기호 · 이름 · 뜻
