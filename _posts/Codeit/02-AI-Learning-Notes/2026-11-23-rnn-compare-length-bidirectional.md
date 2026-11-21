@@ -76,23 +76,17 @@ x6 = torch.tensor([[[1.], [2.], [3.], [4.], [5.], [6.]]])      # 시점 6개, (1
 out4, (h4, c4) = lstm(x4)                                      # 같은 모델에 4시점 입력
 out6, (h6, c6) = lstm(x6)                                      # 같은 모델에 6시점 입력
 print(out4.shape, out6.shape, h4.shape, h6.shape)              # 네 모양 비교
-print(torch.allclose(out6[:, :4, :], out4))                    # 앞 4시점 출력이 같은지
 
 bi = nn.LSTM(1, 2, batch_first=True, bidirectional=True)       # 양방향, 입력 1칸, 상태 2칸
 x = torch.tensor([[[0.5], [-0.3], [0.8], [0.1]]])              # 시점 4개, (1, 4, 1)
 output, (h_n, c_n) = bi(x)                                     # 앞→뒤, 뒤→앞으로 각각 계산
 print(output.shape, h_n.shape, c_n.shape)                      # 세 모양
-print(torch.allclose(output[:, -1, :2], h_n[0]),               # 마지막 위치 앞 2칸 = 정방향 마지막
-      torch.allclose(output[:, 0, 2:], h_n[1]))                # 첫 위치 뒤 2칸 = 역방향 마지막
 ```
 
 ```
 torch.Size([1, 4, 3]) torch.Size([1, 6, 3]) torch.Size([1, 1, 3]) torch.Size([1, 1, 3])
-True
 torch.Size([1, 4, 4]) torch.Size([2, 1, 2]) torch.Size([2, 1, 2])
-True True
 ```
-
 &nbsp;
 
 &nbsp;
