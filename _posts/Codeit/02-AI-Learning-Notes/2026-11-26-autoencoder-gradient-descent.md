@@ -28,24 +28,29 @@ math: true
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/AutoEncoder_practice.ipynb)
 
 ```python
-x = np.array([2.0, 3.0])  # 입력(x)
-e = np.array([0.5, 0.2])  # 인코더 가중치(e)
-d = np.array([1.0, 0.5])  # 디코더 가중치(d)
-eta = 0.1  # 학습률(η)
-n = x.size  # 입력 칸 수(n)
-z = (e * x).sum()  # 순전파: 잠재 표현(z)
-rec = d * z  # 복원값(x̂)
-grad_rec = (2 / n) * (rec - x)  # 출력 기울기
-grad_d = grad_rec * z  # 디코더 가중치 기울기
-grad_z = (grad_rec * d).sum()  # 잠재 표현 기울기
-grad_e = grad_z * x  # 인코더 가중치 기울기
-e = e - eta * grad_e  # 인코더 가중치 갱신
-d = d - eta * grad_d  # 디코더 가중치 갱신
-print(e.round(3), d.round(3))  # 갱신된 가중치 출력
+import torch  # 파이토치
+import torch.nn as nn  # 신경망 층 모음
+
+encoder = nn.Linear(2, 1, bias=False)  # 인코더: 2칸 → 1칸
+decoder = nn.Linear(1, 2, bias=False)  # 디코더: 1칸 → 2칸
+encoder.weight = nn.Parameter(torch.tensor([[0.5, 0.2]]))  # 인코더 가중치(e) 지정
+decoder.weight = nn.Parameter(torch.tensor([[1.0], [0.5]]))  # 디코더 가중치(d) 지정
+model = nn.Sequential(encoder, decoder)  # 인코더 → 디코더 연결
+x = torch.tensor([[2.0, 3.0]])  # 입력(x)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)  # 경사 하강법, 학습률(η)=0.1
+
+loss = nn.MSELoss()(model(x), x)  # 순전파 후 평균제곱오차(L)
+loss.backward()  # 역전파: 모든 기울기 계산
+print(encoder.weight.grad, decoder.weight.grad)  # 인코더·디코더 가중치 기울기
+optimizer.step()  # 가중치 갱신
+print(encoder.weight.data, decoder.weight.data)  # 갱신된 가중치
 ```
 
 ```
-[0.8  0.65] [1.064 0.852]
+tensor([[-3.0000, -4.5000]]) tensor([[-0.6400],
+        [-3.5200]])
+tensor([[0.8000, 0.6500]]) tensor([[1.0640],
+        [0.8520]])
 ```
 
 &nbsp;
