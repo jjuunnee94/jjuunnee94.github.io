@@ -77,7 +77,6 @@ $$\text{파라미터 수} = 4\,(H\times F + H\times H + 2H)$$
 - $c_t=0.42$에서 출력 게이트만 변경: $o=0.6$이면 $h_t\approx0.2382$, $o=0.2$이면 $h_t\approx0.0794$, 셀 상태는 0.42로 동일
 
 ## 4. 💻 [코드]
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/rnn_practice.ipynb)
 
 ```python
@@ -86,7 +85,7 @@ from torch import nn                                           # 신경망 모�
 
 cell = nn.LSTMCell(1, 1).double()                              # 입력 1칸, 상태 1칸, float64
 with torch.no_grad():                                          # 값 설정은 미분 기록에 넣지 않음
-    cell.weight_ih.copy_(torch.tensor([[0.7], [0.9], [-0.6], [0.4]], dtype=torch.float64))  # 입력 가중치 (4, 1)
+    cell.weight_ih.copy_(torch.tensor([[0.7], [0.9], [-0.6], [0.4]], dtype=torch.float64))  # 입력 가중치 (4, 1), 순서 i, f, g, o
     cell.weight_hh.copy_(torch.tensor([[-0.4], [0.3], [0.5], [0.8]], dtype=torch.float64))  # 상태 가중치 (4, 1)
     cell.bias_ih.copy_(torch.tensor([0.0, 0.1, 0.2, -0.1], dtype=torch.float64))            # 입력 편향 (4,)
     cell.bias_hh.fill_(0.0)                                    # 상태 편향은 모두 0
@@ -95,20 +94,11 @@ x = torch.tensor([[0.5]], dtype=torch.float64)                 # 현재 입력 (
 h = torch.tensor([[-0.2]], dtype=torch.float64)                # 이전 은닉 상태 (1, 1)
 c = torch.tensor([[0.4]], dtype=torch.float64)                 # 이전 셀 상태 (1, 1)
 
-a = x @ cell.weight_ih.T + cell.bias_ih + h @ cell.weight_hh.T + cell.bias_hh  # 네 가중합 묶음 (1, 4)
-ai, af, ag, ao = a.chunk(4, dim=1)                             # 네 칸으로 나눔, 각 (1, 1)
-i, f, o = ai.sigmoid(), af.sigmoid(), ao.sigmoid()             # 입력·망각·출력 게이트
-g = ag.tanh()                                                  # 후보
-c_new = f * c + i * g                                          # 새 셀 상태 = 보존분 + 반영분
-h_new = o * c_new.tanh()                                       # 새 은닉 상태
-
-h_api, c_api = cell(x, (h, c))                                 # nn.LSTMCell이 계산한 결과
-print(round(c_new.item(), 6), round(h_new.item(), 6))          # 손계산의 셀·은닉 상태
-print(round(c_api.item(), 6), round(h_api.item(), 6))          # LSTMCell의 셀·은닉 상태
+h_new, c_new = cell(x, (h, c))                                 # (입력, (이전 은닉, 이전 셀)) → (새 은닉, 새 셀)
+print(round(c_new.item(), 6), round(h_new.item(), 6))          # 새 셀 상태, 새 은닉 상태
 ```
 
 ```
-0.128458 0.061962
 0.128458 0.061962
 ```
 
