@@ -1,9 +1,9 @@
 ---
 title: "AutoEncoder - 01. 복원 구조와 작은 오토인코더"
 date: 2026-11-24 09:00:00 +0900
-categories: [Codeit, '02-AI-Learning-Notes']
+categories: [Codeit, 02-AI-Learning-Notes]
 tags: [codeit, autoencoder, reconstruction, mse, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
-math : true
+math: true
 ---
 
 ## 1. 오토인코더(AutoEncoder) 구조
@@ -13,8 +13,13 @@ math : true
 - 분류는 정답 1개(라벨), 오토인코더는 정답이 입력과 같은 개수
 
 ## 2. 작은 오토인코더(2→1→2)와 평균제곱오차
-- 📐[공식] 잠재 표현·복원값: $z = e_1 x_1 + e_2 x_2,\quad \hat{x} = (d_1 z,\ d_2 z)$
-- 📐[공식] 평균제곱오차(MSE): $L = \frac{1}{n}\sum_{i=1}^{n}(\hat{x}_i - x_i)^2$
+
+| 이름 | 말로 푼 식 | 기호 식 |
+|:---:|:---:|:---:|
+| 잠재 표현 | z = (입력 x × 인코더 가중치 e)의 합 | $z = e_1 x_1 + e_2 x_2$ |
+| 복원값 | x̂ = 잠재 표현 z × 디코더 가중치 d | $\hat{x} = (d_1 z,\ d_2 z)$ |
+| 평균제곱오차 | L = ((복원값 − 입력)²의 합) ÷ 칸 수 n | $L = \frac{1}{n}\sum_{i=1}^{n}(\hat{x}_i - x_i)^2$ |
+
 - 순서: 차이 → 제곱 → 평균, 제곱은 한 번만
 - 제곱은 부호 상쇄 방지, 완벽 복원이면 $L=0$
 
