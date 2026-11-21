@@ -59,7 +59,6 @@ $$\text{묶음 가중합} = x_tW_{ih}^{T} + b_{ih} + h_{t-1}W_{hh}^{T} + b_{hh}$
 | `c_n` | $(K{\times}D,\ B,\ H)$ | $(1,\ 1,\ 2)$ |
 
 ## 4. 💻 [코드]
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/rnn_practice.ipynb)
 
 ```python
@@ -72,13 +71,13 @@ x = torch.tensor([[[0.5], [-0.3], [0.8]]])         # 예제 1개 × 시점 3개 
 output, (h_n, c_n) = lstm(x)                       # 모든 시점을 한 번에 계산
 print(output.shape, h_n.shape, c_n.shape)          # 세 반환값의 모양
 
-last = output[:, -1, :]                            # 마지막 시점의 은닉 상태, (1, 2)
-print(last.shape, torch.allclose(last, h_n[0]))    # 모양, h_n과 같은 값인지
+last = output[:, -1, :]                            # 마지막 시점의 은닉 상태
+print(last.shape)                                  # 시간 축이 사라진 모양
 ```
 
 ```
 torch.Size([1, 3, 2]) torch.Size([1, 1, 2]) torch.Size([1, 1, 2])
-torch.Size([1, 2]) True
+torch.Size([1, 2])
 ```
 
 &nbsp;
