@@ -88,28 +88,26 @@ $$a_q = W_{xq}\,x_t + W_{hq}\,h_{t-1} + b_q$$
 - 입력 1칸, 상태 1칸이면 가중치와 편향은 RNN 4개, LSTM $4\times(1+1+2)=16$개
 
 ## 5. 💻 [코드]
-
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/rnn_practice.ipynb)
 
 ```python
-import torch                                              # 파이토치
+import torch                                                        # 파이토치
+from torch import nn                                                # 신경망 모듈
 
-for rate in [0.6, 1.4]:                                   # 매 단계 곱할 배율 두 가지
-    value = 1.0                                           # 처음 크기
-    for _ in range(5):                                    # 5번 반복
-        value = value * rate                              # 배율을 곱함
-    print(rate, round(value, 5))                          # 배율과 5번 곱한 결과
-
-a_f = torch.tensor(0.8 * -0.5 + -0.3 * 0.6 + 0.2)         # 가중합 = 입력 기여 + 이전 은닉 기여 + 편향
-f = torch.sigmoid(a_f)                                    # 시그모이드로 0~1 비율로 변환
-c_prev = torch.tensor(0.8)                                # 이전 셀 상태
-print(round(f.item(), 4), round((f * c_prev).item(), 4))  # 남길 비율, 남은 셀 상태
+for w in [0.6, 1.4]:                                                # 순환 가중치 두 가지
+    rnn = nn.RNN(1, 1, bias=False, batch_first=True).double()       # 입력 1칸, 상태 1칸, 편향 없음, float64
+    with torch.no_grad():                                           # 값 설정은 미분 기록에 넣지 않음
+        rnn.weight_hh_l0.fill_(w)                                   # W_hh = w
+    x = torch.zeros(1, 5, 1, dtype=torch.float64)                   # 입력은 모두 0, 시점 5개, (1, 5, 1)
+    h0 = torch.zeros(1, 1, 1, dtype=torch.float64, requires_grad=True)  # 처음 상태 0, 기울기를 구할 대상
+    output, h_n = rnn(x, h0)                                        # 처음 상태를 직접 넣어 계산
+    h_n.sum().backward()                                            # 마지막 상태에서 처음 상태까지 역전파
+    print(w, round(h0.grad.item(), 5))                              # 배율 w와 처음 상태의 기울기
 ```
 
 ```
 0.6 0.07776
 1.4 5.37824
-0.4061 0.3249
 ```
 
 &nbsp;
