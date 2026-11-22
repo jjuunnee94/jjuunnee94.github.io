@@ -58,10 +58,6 @@ $$ L = L_{\text{recon}} + \text{KL}\big(q(z|x)\ \|\ N(0, I)\big) $$
 
 $$ \text{KL}=-\frac{1}{2}\sum\left(1+\log\sigma^2-\mu^2-\sigma^2\right) $$
 
-#### 📍[예시] 횟수 검증
-
-- $\lceil 5000/64 \rceil = 79$, 3 에폭 → $79 \times 3 = 237$
-
 &nbsp;
 
 &nbsp;
