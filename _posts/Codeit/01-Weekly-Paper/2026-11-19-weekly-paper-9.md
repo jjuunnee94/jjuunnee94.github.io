@@ -7,3 +7,10 @@ math: true
 ---
 
 🇶 진열대 사진에 객체 인식 모델을 돌렸더니, 캔 하나에 박스가 3개씩 거의 같은 자리에 겹쳐서 나와요. 왜 이런 일이 생길까요? 이 박스들을 하나로 정리하려면 어떻게 할 건가요?
+
+&nbsp;
+
+&nbsp;
+
+이 글은 Codeit 강의를 수강하며 작성한 위클리페이퍼입니다. ([Codeit 공식 사이트](https://codeit.kr/))
+{: .small .text-muted .text-center }
