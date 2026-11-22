@@ -25,3 +25,10 @@ tags: [codeit, WeeklyPaper]
 - 문제 이유  
   PyTorch에서는 역전파 수행 시 스텝의 기울기를 덮어쓰지 않고 계속 더해 누적합니다.  
   optimizer.zero_grad()를 쓰지 않으면 이전 스텝의 기울기가 계속 누적되어 가중치의 변화량이 커져 Loss가 제대로 줄어들지 않고 이상하게 튀게 됩니다.
+
+&nbsp;
+
+&nbsp;
+
+이 글은 Codeit 강의를 수강하며 작성한 위클리페이퍼입니다. ([Codeit 공식 사이트](https://codeit.kr/))
+{: .small .text-muted .text-center }
