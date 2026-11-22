@@ -65,3 +65,32 @@ def train_step(net, optimizer, noisy_images, clean_images):  # 한 배치를 학
     error = nn.MSELoss()(reconstructed, clean_images)  # 복원값과 clean의 평균제곱오차
     error.backward()  # 역전파: 기울기 계산
     optimizer.step()  # 가중치 갱신
+    return error.detach().item()  # 오차를 숫자 하나로 돌려줌
+
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)  # Adam, 학습률 0.01
+for epoch in range(1, 4):  # 1, 2, 3 epoch 반복
+    for ids in torch.randperm(len(clean_train)).split(64):  # 훈련 순서를 섞어 64개씩 나눔
+        clean = clean_train[ids]  # 이 배치의 clean 이미지
+        noisy = (clean + 0.25 * torch.randn(clean.shape)).clamp(0, 1)  # 배치마다 새 노이즈
+        loss = train_step(model, optimizer, noisy, clean)  # 한 단계 학습
+
+model.eval()  # 모델을 평가 모드로
+with torch.no_grad():  # 기울기 기록 없이 계산
+    rec = model(noisy_val)  # 검증 noisy의 복원값
+mse_rec = (rec - clean_val).square().mean()  # 복원 오차
+mse_base = (noisy_val - clean_val).square().mean()  # 기준선 오차
+
+batches = torch.randperm(1000).split(64)  # 1000장을 64개씩 나눔
+print(len(batches), len(batches[-1]))  # 배치 수, 마지막 배치 장 수
+```
+
+```
+16 40
+```
+
+&nbsp;
+
+&nbsp;
+
+이 글은 Codeit 강의를 수강하며 학습한 내용을 바탕으로 개인적으로 정리한 것입니다. ([Codeit 공식 사이트](https://codeit.kr/))
+{: .small .text-muted .text-center }
