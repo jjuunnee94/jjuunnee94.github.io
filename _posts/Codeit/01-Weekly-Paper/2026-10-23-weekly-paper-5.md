@@ -1,7 +1,7 @@
 ---
 title: "Weekly paper #5"
 date: 2026-10-23 17:00:00 +0900
-categories: [Codeit, '01-Weekly-Paper']
+categories: [Codeit, '01-Weekly-Paper', 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 tags: [codeit, WeeklyPaper]
 ---
 
