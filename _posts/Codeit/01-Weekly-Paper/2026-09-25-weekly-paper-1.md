@@ -1,7 +1,7 @@
 ---
 title: "weekly paper #1"
 date: 2026-09-27 16:00:00 +0900
-categories: [Codeit, '01-Weekly-Paper']
+categories: [Codeit, '01-Weekly-Paper', 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 tags: [codeit, WeeklyPaper]
 ---
 **🇶 AI 엔지니어에게 가장 중요한 역량은 무엇이라고 생각하나요? 기술적 역량과 비기술적 역량 중 하나를 선택하고, 그 이유를 본인의 언어로 설명해 주세요.**  
