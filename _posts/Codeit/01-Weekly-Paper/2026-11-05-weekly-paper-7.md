@@ -38,3 +38,10 @@ math: true
     - 입력 데이터를 단순 고정 벡터가 아닌 평균 $\mu$와 표준편차 $\sigma$의 잠재 분포 $q(z \mid x)$로 매핑합니다.
     - 손실 함수에 다이버전스 항목을 반영하여 공통 사전 분포 $p(z) = \mathcal{N}(0, I)$와 가깝게 맞춥니다.
     - 이를 통해 연속적이고 **일반화 성능이 뛰어난 잠재 공간**을 형성합니다.
+
+&nbsp;
+
+&nbsp;
+
+이 글은 Codeit 강의를 수강하며 작성한 위클리페이퍼입니다. ([Codeit 공식 사이트](https://codeit.kr/))
+{: .small .text-muted .text-center }
