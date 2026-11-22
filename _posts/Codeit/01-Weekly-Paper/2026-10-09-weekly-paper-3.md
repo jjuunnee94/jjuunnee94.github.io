@@ -1,7 +1,7 @@
 ---
 title: "Weekly paper #3"
 date: 2026-10-09 16:00:00 +0900
-categories: [Codeit, '01-Weekly-Paper']
+categories: [Codeit, '01-Weekly-Paper', 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 tags: [codeit, WeeklyPaper]
 ---
 **🇶 경사하강법으로 모델을 학습시킬 때 학습률을 너무 크게 잡으면 어떤 일이 생길까요? 반대로 너무 작게 잡으면요?**
