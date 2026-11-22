@@ -27,3 +27,10 @@ tags: [codeit, WeeklyPaper]
 - RNN 문제해결  
   LSTM/GRU를 사용해 덧셈 중심의 셀 상태(Cell State)와 게이트로 정보를 보존합니다.  
   어텐션(Attention)과 Transformer를 사용해 거리에 상관없이 필요한 단어를 직접 참조합니다.
+
+&nbsp;
+
+&nbsp;
+
+이 글은 Codeit 강의를 수강하며 작성한 위클리페이퍼입니다. ([Codeit 공식 사이트](https://codeit.kr/))
+{: .small .text-muted .text-center }
