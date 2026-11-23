@@ -19,7 +19,7 @@ math: true
 |:---:|:---:|:---:|
 | 희소 벌점 | 희소 규제 가중치 × 잠재 표현 절댓값의 평균 | $\lambda\,\text{mean}(\lvert z\rvert)$ |
 | 총 손실 | 평균제곱오차 + 희소 벌점 | $L=\text{MSE}(\hat{x},x)+\lambda\,\text{mean}(\lvert z\rvert)$ |
-| 활성 비율 | 0이 아닌 z의 개수 ÷ 전체 z의 개수 | $\frac{\#(z\neq0)}{\text{전체}}$ |
+| 활성 비율 | 0이 아닌 z의 개수 ÷ 전체 z의 개수 | $\frac{\text{0이 아닌 z의 개수}}{\text{전체 z의 개수}}$ |
 
 📍[예시] 복원 평균제곱오차(MSE) 0.04, $\lambda=0.2$
 
