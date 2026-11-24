@@ -1,7 +1,7 @@
 ---
 title: "Predicting Titanic Survival Rates using Machine Learning"
 date: 2026-10-19 19:00:00 +0900
-categories: [Codeit, '02-AI-Learning-Notes']
+categories: [Codeit, '04-Study-Note']
 tags: [codeit, titanic, machine-learning, scikit-learn, eda, hyperparameter-tuning, gradient-boosting, random-forest, 코드잇스프린트, AI, AI부트캠프 , AI엔지니어 , AI엔지니어취업 ]
 ---
 
