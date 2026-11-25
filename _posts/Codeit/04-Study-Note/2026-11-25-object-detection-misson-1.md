@@ -139,7 +139,6 @@ print(bbox)
 ```
 
 - `find`로 태그를 찾고 `.text`로 안의 글자를 꺼낸다. XML의 값은 문자열이라 `int`로 바꿔야 숫자로 쓸 수 있다.
-- 결과 `[83, 29, 197, 142]`는 `[xmin, ymin, xmax, ymax]` 순서이고, 클래스는 `label`에 `cat`이 담겼다.
 
 &nbsp;
 
