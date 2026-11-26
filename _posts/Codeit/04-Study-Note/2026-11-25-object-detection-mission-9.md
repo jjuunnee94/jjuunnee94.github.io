@@ -1,7 +1,7 @@
 ---
 title: "Object Detection SSD 09"
 date: 2026-11-25 17:00:00 +0900
-categories: [Codeit, 02-AI-Learning-Notes]
+categories: [Codeit, 04-study-Note]
 tags: [codeit, mission7, object-detection, ssd, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 math: true
 ---
