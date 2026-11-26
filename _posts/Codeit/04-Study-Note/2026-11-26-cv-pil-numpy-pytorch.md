@@ -1,7 +1,7 @@
 ---
 title: "이미지 변환 흐름 - Pillow 이미지 → NumPy 배열 → PyTorch 텐서"
 date: 2026-11-26 15:00:00 +0900
-categories: [Codeit, 02-AI-Learning-Notes]
+categories: [Codeit, 04-Study-Note]
 tags: [codeit, cv, pillow, numpy, pytorch, tensor, dtype, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 math: true
 ---
