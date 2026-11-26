@@ -1,6 +1,6 @@
 ---
 title: "CNN의 역사 - CNN의 시작"
-date: 2026-11-27 17:30:00 +0900
+date: 2026-11-26 21:00:00 +0900
 categories: [Codeit, 04-Study-Note]
 tags: [codeit, CNN_History, 코드잇스프린트, AI, AI부트캠프, AI엔지니어, AI엔지니어취업]
 ---
