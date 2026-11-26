@@ -74,7 +74,6 @@ math: true
 - 값은 여전히 0~1 실수이고, Matplotlib은 0~1 실수도 그릴 수 있어서 그대로 보인다.
 
 ## 6. 💻 [코드]
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/cv_practice.ipynb)
 
 ```python
 from PIL import Image
