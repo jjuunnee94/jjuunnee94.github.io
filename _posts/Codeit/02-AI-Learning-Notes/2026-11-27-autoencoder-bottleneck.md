@@ -30,6 +30,8 @@ math: true
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/jjuunnee94/jjuunnee94.github.io/blob/main/notebooks/AutoEncoder_practice.ipynb)
 
 ```python
+import numpy as np
+
 x = np.array([2.0, 6.0, 5.0, 1.0])  # 입력(x) 네 칸
 z = np.array([(x[0] + x[1]) / 2, (x[2] + x[3]) / 2])  # 잠재 표현(z): 앞 두 칸 평균, 뒤 두 칸 평균
 rec = np.array([z[0], z[0], z[1], z[1]])  # 복원값(x̂): z의 각 칸을 두 번씩 복사
