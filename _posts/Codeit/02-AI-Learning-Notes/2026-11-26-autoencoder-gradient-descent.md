@@ -6,7 +6,7 @@ tags: [codeit, autoencoder, gradient-descent, learning-rate, 코드잇스프린�
 math: true
 ---
 
-## 1. 경사 하강법
+## 1. 경사 하강법 
 - 한 바퀴: 순전파 → 손실 → 역전파 → 모든 가중치 한꺼번에 갱신
 - 기울기가 음수면 가중치 증가, 양수면 감소
 - 학습률(η): 이동량의 크기 조절, 크면 지나칠 수 있음 
